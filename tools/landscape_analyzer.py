@@ -37,7 +37,7 @@ THEME_KEYWORDS = [
     "skill", "tool", "embodied", "causal", "attention",
 ]
 # Config-driven keywords override THEME_KEYWORDS when taxonomy.yaml defines them.
-_CFG = research_config.load_config()
+_CFG = research_config.require_valid_config()
 THEME_KEYWORDS = research_config.get_trend_keywords(_CFG) or THEME_KEYWORDS
 
 

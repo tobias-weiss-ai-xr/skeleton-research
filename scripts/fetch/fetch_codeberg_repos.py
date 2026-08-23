@@ -40,6 +40,8 @@ from repos_common import (
     normalize_entry,
     load_existing_repos,
     append_repos,
+    http_get_with_retry,
+    DEFAULT_USER_AGENT,
 )
 
 CODEBERG_HOST = os.environ.get("CODEBERG_HOST", "https://codeberg.org")
@@ -98,36 +100,29 @@ def codeberg_search_repos(query, host, per_page=20, page=1, owner=None):
     if owner:
         params["q"] = f"{query} user:{owner}"
 
+    resp = http_get_with_retry(
+        session, f"{host}/api/v1/repos/search", params=params,
+        timeout=30, rate_limit_wait=60,
+    )
+    if resp is None:
+        return [], 0
+
+    if resp.status_code >= 400:
+        print(f"  WARNING: Codeberg API {resp.status_code}: {resp.text[:100]}",
+              flush=True)
+        return [], 0
+
     try:
-        resp = session.get(
-            f"{host}/api/v1/repos/search",
-            params=params,
-            timeout=30,
-        )
-        if resp.status_code == 429:
-            print("  WARNING: Codeberg rate limit (429), waiting 60s", flush=True)
-            time.sleep(60)
-            return [], 0
-
-        if resp.status_code >= 400:
-            print(f"  WARNING: Codeberg API {resp.status_code}: {resp.text[:100]}",
-                  flush=True)
-            return [], 0
-
         data = resp.json()
-        if not isinstance(data, dict):
-            return [], 0
+    except ValueError:
+        return [], 0
+    if not isinstance(data, dict):
+        return [], 0
 
-        items = data.get("data", [])
-        ok = data.get("ok", False)
-        total = data.get("total_count", len(items))
-        return (items if ok else []), total
-    except requests.Timeout:
-        print("  WARNING: Codeberg API timeout", flush=True)
-        return [], 0
-    except requests.ConnectionError:
-        print("  WARNING: Codeberg connection error", flush=True)
-        return [], 0
+    items = data.get("data", [])
+    ok = data.get("ok", False)
+    total = data.get("total_count", len(items))
+    return (items if ok else []), total
 
 
 def codeberg_to_raw(item):
@@ -180,7 +175,7 @@ def main():
                         help="Output file path (default: repos.yaml)")
     args = parser.parse_args()
 
-    cfg = research_config.load_config()
+    cfg = research_config.require_valid_config()
     queries = load_codeberg_queries(cfg)
 
     if not queries:

@@ -44,6 +44,7 @@ from repos_common import (
     normalize_entry,
     load_existing_repos,
     append_repos,
+    http_get_with_retry,
 )
 
 GITLAB_API = os.environ.get("GITLAB_HOST", "https://gitlab.com") + "/api/v4"
@@ -107,37 +108,28 @@ def gitlab_search_projects(query, host, min_stars=5, topics=None,
     if language:
         params["programming_language"] = language
 
+    resp = http_get_with_retry(
+        session, f"{host}/api/v4/projects", params=params,
+        timeout=30, rate_limit_wait=60,
+    )
+    if resp is None:
+        return [], 0
+
+    if resp.status_code >= 400:
+        print(f"  WARNING: GitLab API {resp.status_code}: {resp.text[:100]}", flush=True)
+        return [], 0
+
     try:
-        resp = session.get(
-            f"{host}/api/v4/projects",
-            params=params,
-            timeout=30,
-        )
-        if resp.status_code == 429:
-            reset = int(resp.headers.get("RateLimit-Reset", 0))
-            wait = max(60, reset - int(time.time()) + 1)
-            print(f"  WARNING: GitLab rate limit (429), waiting {wait}s", flush=True)
-            time.sleep(wait)
-            return [], 0
-
-        if resp.status_code >= 400:
-            print(f"  WARNING: GitLab API {resp.status_code}: {resp.text[:100]}", flush=True)
-            return [], 0
-
         data = resp.json()
-        if not isinstance(data, list):
-            return [], 0
+    except ValueError:
+        return [], 0
+    if not isinstance(data, list):
+        return [], 0
 
-        # Filter by star count client-side (API has no min_stars param)
-        items = [p for p in data if (p.get("star_count") or 0) >= min_stars]
-        total = int(resp.headers.get("X-Total", len(items)))
-        return items, total
-    except requests.Timeout:
-        print("  WARNING: GitLab API timeout", flush=True)
-        return [], 0
-    except requests.ConnectionError:
-        print("  WARNING: GitLab connection error", flush=True)
-        return [], 0
+    # Filter by star count client-side (API has no min_stars param)
+    items = [p for p in data if (p.get("star_count") or 0) >= min_stars]
+    total = int(resp.headers.get("X-Total", len(items)))
+    return items, total
 
 
 def gitlab_to_raw(item):
@@ -200,7 +192,7 @@ def main():
                         help="Output file path (default: repos.yaml)")
     args = parser.parse_args()
 
-    cfg = research_config.load_config()
+    cfg = research_config.require_valid_config()
     queries = load_gitlab_queries(cfg)
 
     if not queries:

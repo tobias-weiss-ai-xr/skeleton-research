@@ -41,216 +41,30 @@ papers:
   abstract: A third placeholder. Once you add real papers, re-run the pipeline to
     regenerate statistics and reports.
   tags: []
-- title: 'PREreview of "Data Security in AI Healthcare Applications: Challenges and
-    Innovative Methods"'
-  date: 2026-07
-  url: https://prereview.org/reviews/21716444
-  category: method
-  subcategory: ''
+- title: 'Example Paper 4: An Evaluation Benchmark for Your Topic'
+  date: 2025-08
+  url: https://arxiv.org/abs/2508.00004
+  category: evaluation
+  subcategory: hybrid
   authors:
-  - Deven Yadav
-  abstract: 'This Zenodo record is a permanently preserved version of a PREreview.
-    You can view the complete PREreview at https://prereview.org/reviews/21716444.
-    This review paper surveys defensive techniques for healthcare AI systems, focusing
-    on blockchain, zero-knowledge proofs (ZKP), and honeypots as complementary approaches
-    to address adversarial attacks, data poisoning, and data breaches. The authors
-    synthesize 13 prior works into a comparative table and propose a conceptual hybrid
-    security framework combining all three techniques, illustrated through a weighted
-    mathematical scoring model. A qualitative use-case scenario is provided to demonstrate
-    the proposed hybrid approach. Major issues 1. Review methodology lacks rigor.
-    The paper is positioned as a literature review but does not follow any established
-    review methodology (PRISMA, SALSA, or comparable). Search databases are named
-    but there is no documented inclusion/exclusion criteria, no time window justification,
-    no quality appraisal of included works, and no data extraction protocol. As a
-    result, the reader cannot assess whether the 13 cited works are representative
-    of the field or how they were selected. A systematic or scoping review framework
-    should be adopted, or the paper should be explicitly reframed as a narrative review
-    with corresponding limitations acknowledged. 2. The "hybrid security score" model
-    (Section 3.1–3.4) is not empirically grounded. The proposed equation S = αB +
-    βZ + γH is a weighted average with arbitrarily chosen weights (α=0.4, β=0.4, γ=0.2)
-    and arbitrarily chosen component values (B=0.85, Z=0.75, H=0.65). No justification
-    is provided for how these values were obtained, what units they represent, or
-    what a resulting score of 0.77 signifies. Without empirical calibration against
-    real threat data or validation against a benchmark, this model does not "quantify"
-    security in any meaningful sense it presents subjective weights as if they were
-    measurements. Either an empirical basis for the weights should be provided (e.g.,
-    derived from threat frequency data, expert elicitation with documented methodology,
-    or benchmarking against known attack outcomes), or the model should be explicitly
-    reframed as an illustrative conceptual scaffold rather than a quantitative measure.
-    3. The "proposed solution" is not sufficiently detailed for evaluation. Figure
-    2 depicts blockchain, ZKP, and honeypots operating alongside a healthcare API,
-    but the paper does not specify architectural details (which blockchain, permissioned
-    vs. public, ZKP scheme used, honeypot deployment topology), integration points
-    with existing healthcare infrastructure (HL7/FHIR, HIPAA-compliant messaging,
-    EHR systems), performance considerations, or any implementation or evaluation.
-    A reader cannot assess feasibility, scalability, or clinical workflow impact.
-    4. Regulatory and compliance context is absent. For a paper on healthcare data
-    security, the omission of HIPAA (US), GDPR (EU), and analogous frameworks is a
-    significant gap. There is no discussion of how blockchain immutability interacts
-    with GDPR''s right to erasure, how ZKP verification maps to HIPAA audit-logging
-    requirements, or how honeypots relate to breach-notification obligations. These
-    regulatory dimensions are central to any real-world deployment. 5. Key technical
-    literature is missing. For a review on secure AI in healthcare, notable omissions
-    include: federated learning (only mentioned in passing), differential privacy
-    in medical data (Abadi et al. and follow-ups), homomorphic encryption implementations
-    (mentioned in Table 1 but not discussed), secure multi-party computation, trusted
-    execution environments (TEEs) such as Intel SGX in healthcare deployments, and
-    standards work by NIST (SP 800-66) and HITRUST CSF. A review of only 13 works
-    is thin for the breadth of the topic claimed. 6. Conflation of AI security with
-    data security. The paper mixes adversarial ML attacks (data poisoning, model evasion
-    — properties of AI systems) with conventional data breaches (unauthorized access,
-    ransomware properties of any system holding sensitive data). These are related
-    but distinct problem domains with different mitigation strategies. Separating
-    these clearly and mapping each defensive technique (blockchain, ZKP, honeypot)
-    to the specific threat class it addresses would strengthen the argument considerably.
-    7. Table 1 caption reads "This is a wide table" appears to be an unedited template
-    placeholder. Similarly, Figure 3 caption references "your hybrid system" (second-person),
-    suggesting incomplete editorial pass. Minor issues The introduction cites "275,000,000
-    individuals were affected by healthcare security breaches" in 2024 but provides
-    no source. Please cite HHS OCR breach portal data or a comparable authoritative
-    source. Figure 1''s "Robin Hoods" category of actors is unusual and not defined
-    in the text. Either define this taxonomy explicitly or use standard threat-actor
-    typologies (e.g., MITRE ATT&CK, or Verizon DBIR categories). The funding statement
-    references Grant No. 7502 for "Green Buildings and Environmental Monitoring Drone
-    Swarms ECOSwarm." Please clarify how this grant relates to healthcare cybersecurity
-    research, as the connection is not obvious. Language editing is needed throughout.
-    The Discussion section (Section 3) largely restates points already made in Section
-    2 rather than synthesizing across the reviewed works. A synthesis matrix mapping
-    threat class to defensive technique to open research questions would be more valuable.
-    References are limited (13). For a review paper on this topic, 40–60 references
-    would be typical. Competing interests The author declares that they have no competing
-    interests. Use of Artificial Intelligence (AI) The author declares that they did
-    not use generative AI to come up with new ideas for their review.'
-  venue: Open MIND
-- title: IEEE Standard for Substrate-Native Integer Computing (Zone 0) — Measured
-    Solution to AI Energy Crisis, Reproducibility, and Edge Learning
-  date: 2026-07
-  url: https://doi.org/10.5281/zenodo.21514923
-  category: method
-  subcategory: ''
+  - Example Author F
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: A placeholder abstract. This example demonstrates the evaluation category
+    with a hybrid subcategory. Replace with a real summary once you add actual papers.
+  tags: []
+- title: 'Example Paper 5: A Survey of Your Topic Across Domains'
+  date: 2025-05
+  url: https://arxiv.org/abs/2505.00005
+  category: survey
+  subcategory: non-agentic
   authors:
-  - Daniel Dragolich
-  abstract: 'Hello. Thank you for taking the time and interest in this work. During
-    the current times, I know that it can be tougher and tougher to decide who is
-    truthful with their work and who steals from others for their own vanity. I stand
-    by my work. Over the course of 15 months, I have read and used every line of code,
-    text, and any other research to build this system from the voltage up. This is
-    engineering and computer science. I do not believe in the mystics of AGI and conscious
-    AI and that people are allowed to get away with science using the term "black
-    box". It is terrible to see people exploit others that are not well informed yet
-    on the topic to steal and extract money from our businesses and institutions making
-    the totality as a whole much worst. It is the champions curse. Those that can
-    will surpass those that can''t, if allowed to be isolated away from everyone themselves,
-    will always lead to a life of disconnect and ,essentially, taking the person out
-    of the community and into these tightly knit gangs of egocentric ideologies and,
-    the worst of all, self eating mechanisms because groups believe that they are
-    right rather than the individual. When a million people people are smart, smarter
-    than one. Participation trophies, in the Math and Sciences, driving unhealthy
-    and untested egos destropying the mind becoming a sickness, when the only thing
-    one needs to do is actually acknowledge the journey and not admiring the work.
-    Our reasons are each their own. Why do anything? Well, my reasons are not hard
-    to understand the what. but the why is the answer to the questions I seek to answer.
-    Energy problems, destroying the planet, having to watch another AI video slop
-    that is not even funny or well done and listen to idiots giggle their way to a
-    completely null livelihood of experience rather than exploration because of the
-    ego. Safety. Being part of the "crew". No one got anywhere doing it that way because
-    if everyone is doing it, than it is easy. Easy things are like a shiny little
-    trinket. The whole goal is to collect a million trinkets of no value. If I get
-    a bunch, than I have a bunch. But in reality, people are arguing if the 8 slice
-    pizza and the 12 slice of the same size actually have a different value to the
-    whole. It is still just one pile of pizza slop no matter how many slices you make
-    it into. That is easy. What is not easy is when people are out to make your life
-    worst. To tell others that they are dumb and that they are smart. I don''t buy
-    it, eitherwise I would have never done this. If things are working, than don''t
-    fix it. This is fixing. I saw a flaw, to stupid to understand why it works in
-    the first place, and in that process, I found flaws in the literature and the
-    work in floating point and the bit itself. 0 and 1. What the heck. We built everything
-    on an assumption. Those assumptions have put us in this position. As far as academia
-    goes, it pains me to see how it has changed. Below is the "offer". I am sick of
-    seeing people struggle for no reason. It is self induced. I want to work with
-    those that also see these flaws and want to work on resolving problems. Not creating
-    more. Humans control the technology. Anyone that doesn''t believe that they don''t
-    know what they are doing and it is a black box is trying to steal your money.
-    Sorry if the vocabulary like "organism" and "heartbeat" throws you off. Well,
-    that is why I can''t write the paper. Nothing like this has any documentation
-    or vocabulary yet for these mechanisms, so I had to use wording to keep all my
-    thoughts together. This also helps for the system to build itself. It can follow
-    the "anatomy" to build itself. It is also something that I hate using and burns
-    my eyes everytime I look at those weird terms for computer science and technology.
-    Any insights into better wording and contributing vocabulary is also needed in
-    this collaboration. I don''t care about naming your technology. Just the fact
-    that we give tech names is another form of psychosis. Like dressing a dog in clothes.
-    Or walking your cat. Just burns the eyes. But enough with all of this introduction
-    just to prove that I am real and not full of shit. If you don''t like cursing,
-    I am sorry, but it is also a good tell that I am a person with real passionate
-    feelings about this. Now for the ask and the reasons why behind this random rant
-    from "some dude nobody named Dan with a last name like a field goal kicker". What
-    This Actually Is Zone 0 is substrate-native integer computing. Plain English:
-    an unbroken path from the voltage on the silicon all the way up to a symbolic
-    language, where every single layer uses integer-only arithmetic — no IEEE-754
-    floating point anywhere on the path, no operating system abstraction layer between
-    you and the hardware, and bit-exact determinism at every step. Not "mostly deterministic."
-    Not "deterministic if you set the right flags." Bit-for-bit identical output,
-    every run, every time, by construction — because integers are associative and
-    there is nothing else in the stack. The reference implementation of the arithmetic
-    floor is 146 lines of C (phi_fixed.h). Q32.32 fixed-point: 32 integer bits, 32
-    fractional bits, giving 4,294,967,296 distinguishable levels per cell — a resolution
-    of 2.33 × 10⁻¹⁰. Trigonometry by 28-iteration CORDIC (shift + add + table lookup
-    — the same method used in early spacecraft navigation computers). Square roots
-    by integer Newton iteration on 128-bit radicands. No FPU. No libm. No math library
-    at all. The entire arithmetic floor is integer ALU operations and nothing else.
-    The stack has eight layers, from raw voltage and MSR registers at the bottom (Layer
-    0.1) to a 256-symbol integer bytecode language at the top (Layer 0.8). Signal
-    travels from voltage to symbol and back without ever becoming a float, crossing
-    an OS abstraction boundary, or producing a non-deterministic result. We mapped
-    484 source files across 8 subdomains and 36 leaves to verify this property holds
-    everywhere. Not claimed — verified, file by file. The Problems This Solves These
-    are not theoretical concerns. These are problems burning real money, blocking
-    real certifications, and producing real failures right now. The AI Energy Crisis.
-    Training GPT-4-class models costs an estimated $100M+ on ~25,000 A100 GPUs consuming
-    megawatt-scale power over months. Global AI compute is approaching 565 TWh — the
-    annual electricity consumption of entire nations. The trajectory is unsustainable,
-    and everyone in the industry knows it. We measured a full Zone 0 training run
-    at 0.414 joules. Not kilowatt-hours. Not megawatt-hours. Less than half a joule.
-    That is approximately 450,000,000× less energy than published estimates for large
-    transformer training. The measurement is RAPL-instrumented, on commodity x86 hardware,
-    and you can reproduce it with the commands included in the attachment. On a 50
-    Wh laptop battery, that''s ~434,258 full training runs before you need to plug
-    in. The energy win is not incremental optimization — it is a paradigm difference.
-    The mechanism is memory bandwidth: 2-bit quaternary weights move 16× fewer bytes
-    than float32, and the learning operation (a Banach contraction) is 5 integer instructions,
-    3 clock cycles, 1 nanosecond at 3 GHz. The Reproducibility Crisis. IEEE-754 floating-point
-    addition is non-associative. GPU parallelism makes reduction order non-deterministic.
-    The result: train the same model twice on the same data and you get different
-    weights. torch.use_deterministic_algorithms(True) helps but disables entire operation
-    categories and still doesn''t cover cuDNN autotuning or float16 precision variance
-    across GPU generations. The machine learning reproducibility crisis is well-documented
-    — "cannot reproduce results" is the single most common complaint in ML peer review.
-    Zone 0 eliminates this structurally: integer arithmetic is associative by definition.
-    CORDIC trig uses a fixed 28-iteration loop with a fixed table — no data-dependent
-    branching. Prime-rhythm scheduling eliminates shared-clock interleaving non-determinism,
-    reducing active pathways by 99.11% (measured, 20 million ticks, analytic prediction
-    matched to four decimal places). Same input → same output → same SHA-256 seal.
-    Every time. On every machine. This is not a flag you set. It is a property of
-    the arithmetic. Edge AI Cannot Learn. The entire TinyML ecosystem (TFLite Micro,
-    CMSIS-NN) does inference only. No on-device training. Federated learning still
-    requires a cloud aggregation server — there is no "learning at the edge" without
-    phoning home. Zone 0 runs on a $30 Teensy 4.1 (NXP Cortex-M7, 600 MHz). Measured:
-    1.2–1.8 billion integer operations per second per board. A 512-board leaderless
-    swarm (no coordinator, no parameter server, no single point of failure) reaches
-    614 billion ops/s — 207× one board — while being 17× calmer (lower variance) because
-    leaderless consensus calms as 1/√N. The system learns on-device from its own MSR
-    register readings at 1000 Hz. No cloud. No float. No asking permission. Safety-Critical
-    Certification Gaps. Avionics (DO-178C), medical devices (IEC 62304), and automotive
-    (ISO 26262) require deterministic, auditable, reproducible computation. Floating-point
-    non-determinism is a known blocker for certification of ML-based systems in these
-    domains. Zone 0''s bit-exact integer stack, with SHA-256 sealed provenance on
-    every record and write-once immutable storage, is architecturally aligned with
-    what these certification frameworks actually require. Every disc (record) is minted
-    once, frozen, and carries a cryptographic seal. 146,463 discs produced. 60,073
-    distinct 64-bit seals. Zero collisions. The Black Box Problem. You cannot audit
-    what you cannot reproduce. A trillion-parameter model trained on 25,000 GPUs with
-    non-deterministic float reductions is, by construction, a black box — not because
-    anyone chose to hide anything, but because the math literally does not reproduce.
-    Zone 0 is fully inspectable because it is fully reproducible. Every'
-  venue: Zenodo (CERN European Organization for Nuclear Research)
+  - Example Author G
+  - Example Author H
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: Another placeholder abstract. The corpus pipeline uses title/abstract
+    text for trend analysis, so keep abstracts accurate when you add real papers.
+  tags: []

@@ -23,7 +23,7 @@ import research_config
 
 REPO = Path(__file__).resolve().parent.parent
 
-_CFG = research_config.load_config()
+_CFG = research_config.require_valid_config()
 
 STOP = {"for", "in", "the", "and", "with", "of", "on", "to", "a", "an"}
 

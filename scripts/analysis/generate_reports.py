@@ -12,8 +12,10 @@ Standard pipeline mimic shared across all research repos.
 
 Usage:
     python3 scripts/analysis/generate_reports.py
+    python3 scripts/analysis/generate_reports.py --check   # CI: fail if stale
 """
 
+import argparse
 import json
 import sys
 from collections import Counter
@@ -29,18 +31,13 @@ sys.path.insert(0, str(REPO / "scripts"))
 from trend_scanner import scan as scan_trends  # noqa: E402
 import research_config  # noqa: E402
 
-_CFG = research_config.load_config()
+_CFG = research_config.require_valid_config()
 
 
 def _display(kebab):
-    # Prefer config display names, fall back to title-casing the id
-    for c in research_config.get_categories(_CFG):
-        if c.get("id") == kebab:
-            return c.get("display", kebab)
-    for s in research_config.get_subcategories(_CFG):
-        if s.get("id") == kebab:
-            return s.get("display", kebab)
-    return kebab.replace("-", " ").replace("_", " ").title()
+    # Prefer config display names, fall back to title-casing the id.
+    # Shared helper lives in research_config so all generators agree.
+    return research_config.display_name(_CFG, kebab)
 
 
 def load_papers():
@@ -127,16 +124,53 @@ def render_trends(papers, now):
     return "\n".join(L)
 
 
+REPORT_FILES = ("literature_review.md", "trends.md")
+
+
+def render_reports(papers, now, stats):
+    """Render both reports, returning {filename: content}."""
+    return {
+        "literature_review.md": render_literature(papers, now, stats),
+        "trends.md": render_trends(papers, now),
+    }
+
+
 def main():
+    parser = argparse.ArgumentParser(description="Generate literature/trends reports")
+    parser.add_argument(
+        "--check", action="store_true",
+        help="Verify reports are up-to-date without writing (exit 1 if stale)",
+    )
+    args = parser.parse_args()
+
     papers = load_papers()
     now = datetime.now().isoformat()[:10]
     stats_path = REPO / "statistics.json"
     stats = json.loads(stats_path.read_text(encoding="utf-8")) if stats_path.exists() else None
 
     out = REPO / "docs" / "research"
+    reports = render_reports(papers, now, stats)
+
+    if args.check:
+        stale = []
+        for fname, content in reports.items():
+            path = out / fname
+            current = path.read_text(encoding="utf-8") if path.exists() else None
+            if current != content:
+                stale.append(fname)
+        if not stale:
+            print("All reports are up-to-date.")
+            sys.exit(0)
+        print(
+            "Stale reports: " + ", ".join(stale) +
+            ". Run scripts/analysis/generate_reports.py to regenerate.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
     out.mkdir(parents=True, exist_ok=True)
-    (out / "literature_review.md").write_text(render_literature(papers, now, stats), encoding="utf-8")
-    (out / "trends.md").write_text(render_trends(papers, now), encoding="utf-8")
+    for fname, content in reports.items():
+        (out / fname).write_text(content, encoding="utf-8")
     print("wrote docs/research/literature_review.md & docs/research/trends.md")
 
 

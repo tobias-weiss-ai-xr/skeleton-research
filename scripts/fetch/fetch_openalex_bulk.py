@@ -363,7 +363,7 @@ def main():
     parser.add_argument("--local", action="store_true", help="Run locally without modifying remote repos")
     args = parser.parse_args()
 
-    cfg = research_config.load_config()
+    cfg = research_config.require_valid_config()
     category_terms = load_category_terms(cfg)
     subcat_keywords = load_subcat_keywords(cfg)
     mailto = research_config.get_openalex_mailto(cfg)

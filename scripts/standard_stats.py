@@ -14,9 +14,12 @@ Standard pipeline mimic shared across all research repos.
 
 Usage:
     python3 scripts/standard_stats.py
+    python3 scripts/standard_stats.py --check   # CI: fail if outputs stale
 """
 
+import argparse
 import json
+import sys
 from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -38,7 +41,7 @@ BURST_KEYWORDS = [
     "causal", "attention",
 ]
 # Config-driven keywords override BURST_KEYWORDS when taxonomy.yaml defines them.
-_CFG = research_config.load_config()
+_CFG = research_config.require_valid_config()
 BURST_KEYWORDS = research_config.get_trend_keywords(_CFG) or BURST_KEYWORDS
 
 
@@ -60,10 +63,12 @@ def _date_in(datestring, lo, end):
         return False
 
 
-def main():
-    with open(REPO / "papers.yaml", encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-    entries = data.get("papers", [])
+def compute_all(entries):
+    """Compute stats + papers.json + viz payload from paper entries.
+
+    Returns (stats, papers_export, viz).  Pure computation — no I/O — so it
+    can be reused for both writing and freshness ``--check``.
+    """
     print(f"Parsed {len(entries)} papers")
 
     cats = [c for c in sorted({e.get("category", "unknown") for e in entries})
@@ -203,16 +208,11 @@ def main():
         "top_authors": top_authors,
     }
 
-    (REPO / "statistics.json").write_text(json.dumps(stats, indent=2), encoding="utf-8")
-    print(f"Wrote statistics.json ({total} papers, {saturation}% saturation)")
-
     export = []
     for e in entries:
         export.append({k: e.get(k, "") for k in
                        ("title", "date", "url", "category", "subcategory", "authors", "abstract", "venue")})
     export.sort(key=lambda p: p.get("date", ""), reverse=True)
-    (REPO / "papers.json").write_text(json.dumps(export, indent=1), encoding="utf-8")
-    print(f"Wrote papers.json ({len(export)} papers)")
 
     pub_dates = [(e.get("date", "")[:7], e.get("category", ""), e.get("subcategory", ""))
                  for e in entries if e.get("date")]
@@ -229,9 +229,67 @@ def main():
         "venues": top_venues,
         "keyword_bursts": bursts[:15],
     }
-    (REPO / "assets").mkdir(exist_ok=True)
-    (REPO / "assets" / "graph_analysis.json").write_text(json.dumps(viz, indent=1), encoding="utf-8")
-    print("Wrote assets/graph_analysis.json")
+    return stats, export, viz
+
+
+def _json_dump(obj, indent):
+    return json.dumps(obj, indent=indent, ensure_ascii=False) + "\n"
+
+
+# Output files this generator owns (path, serialized content)
+STATS_OUTPUTS = (
+    # (relative path, payload-key, indent)
+    ("statistics.json", "stats", 2),
+    ("papers.json", "papers", 1),
+    ("assets/graph_analysis.json", "viz", 1),
+)
+
+
+def build_outputs(stats, papers_export, viz):
+    """Return {relative_path: serialized string} for every generator output."""
+    payloads = {"stats": stats, "papers": papers_export, "viz": viz}
+    return {
+        rel: _json_dump(payloads[key], indent)
+        for rel, key, indent in STATS_OUTPUTS
+    }
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate statistics & visualization outputs")
+    parser.add_argument(
+        "--check", action="store_true",
+        help="Verify all outputs are up-to-date without writing (exit 1 if stale)",
+    )
+    args = parser.parse_args()
+
+    with open(REPO / "papers.yaml", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+    entries = data.get("papers", [])
+    stats, export, viz = compute_all(entries)
+    outputs = build_outputs(stats, export, viz)
+
+    if args.check:
+        stale = []
+        for rel in outputs:
+            path = REPO / rel
+            current = path.read_text(encoding="utf-8") if path.exists() else None
+            if current != outputs[rel]:
+                stale.append(rel)
+        if not stale:
+            print("All stats outputs are up-to-date.")
+            sys.exit(0)
+        print(
+            "Stale outputs: " + ", ".join(stale) +
+            ". Run scripts/standard_stats.py to regenerate.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    for rel, content in outputs.items():
+        path = REPO / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
+    print(f"Wrote statistics.json ({len(entries)} papers), papers.json, assets/graph_analysis.json")
 
 
 if __name__ == "__main__":

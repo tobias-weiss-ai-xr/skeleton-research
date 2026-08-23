@@ -21,6 +21,14 @@ import yaml
 
 import research_config
 
+# Ensure UTF-8 output on all platforms (Windows cp1252 would otherwise raise
+# UnicodeEncodeError when printing arrows/dashes in diagnostics).
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+except (AttributeError, ValueError):  # pragma: no cover - non-TTY / older Python
+    pass
+
 ARXIV_ID_PATTERN = re.compile(r"(\d{4}\.\d{4,5})(v\d+)?")
 ARXIV_URL_PATTERN = re.compile(r"^https://arxiv\.org/abs/\d{4}\.\d{4,5}$")
 ARXIV_DOI_PATTERN = re.compile(r"doi\.org/10\.48550/arXiv\.", re.IGNORECASE)
@@ -201,7 +209,7 @@ def main():
         print(f"ERROR: {yaml_path} not found", flush=True)
         sys.exit(1)
 
-    cfg = research_config.load_config()
+    cfg = research_config.require_valid_config()
 
     with open(yaml_path, "r", encoding="utf-8") as f:
         data = yaml.safe_load(f) or {}

@@ -18,6 +18,8 @@ import yaml
 
 __all__ = [
     "REPOS_YAML",
+    "DEFAULT_USER_AGENT",
+    "http_get_with_retry",
     "_norm",
     "_tokenize",
     "_word_re",
@@ -35,6 +37,87 @@ __all__ = [
 
 BASE = Path(__file__).resolve().parent.parent.parent
 REPOS_YAML = BASE / "repos.yaml"
+
+DEFAULT_USER_AGENT = "Research-Corpus/1.0 (mailto:research@tobias-weiss-ai-xr.de)"
+
+
+def http_get_with_retry(session, url, *, params=None, timeout=30,
+                        max_retries=4, headers=None, rate_limit_wait=60,
+                        sleep_fn=None):
+    """GET a URL with consistent backoff + rate-limit handling.
+
+    Centralises the retry / ``Retry-After`` / 429 / 5xx / timeout / connection
+    handling that used to be duplicated in every fetcher.  Returns the
+    ``requests.Response`` on success, or ``None`` after exhausting retries.
+
+    Backoff policy:
+      - 429: honour ``Retry-After`` header (capped at ``rate_limit_wait``),
+        else wait ``rate_limit_wait``.
+      - 5xx / timeout / connection error: exponential backoff
+        (2s, 4s, 8s, … capped at 30s).
+
+    ``sleep_fn`` may be injected for testing (defaults to ``time.sleep``).
+    """
+    import time
+
+    import requests
+
+    sleep = sleep_fn or time.sleep
+
+    for attempt in range(max_retries):
+        try:
+            resp = session.get(url, params=params, timeout=timeout, headers=headers)
+        except requests.exceptions.Timeout:
+            wait = min(2 ** (attempt + 1), 30)
+            print(f"    timeout, waiting {wait}s (attempt {attempt+1}/{max_retries})",
+                  flush=True)
+            sleep(wait)
+            continue
+        except requests.exceptions.ConnectionError:
+            wait = min(2 ** (attempt + 1), 30)
+            print(f"    connection error, waiting {wait}s (attempt {attempt+1}/{max_retries})",
+                  flush=True)
+            sleep(wait)
+            continue
+
+        if resp.status_code == 429:
+            reset = _retry_after_seconds(resp, rate_limit_wait)
+            print(f"    rate limit (429), waiting {reset}s (attempt {attempt+1}/{max_retries})",
+                  flush=True)
+            sleep(reset)
+            continue
+
+        if resp.status_code >= 500:
+            wait = min(2 ** (attempt + 1), 30)
+            print(f"    server {resp.status_code}, waiting {wait}s "
+                  f"(attempt {attempt+1}/{max_retries})", flush=True)
+            sleep(wait)
+            continue
+
+        return resp
+    return None
+
+
+def _retry_after_seconds(resp, default_wait):
+    """Parse the Retry-After header, capped at ``default_wait`` seconds."""
+    import time
+
+    raw = resp.headers.get("Retry-After") or resp.headers.get("retry-after")
+    if raw is None:
+        return default_wait
+    raw = raw.strip()
+    try:
+        if raw.isdigit():
+            secs = int(raw)
+        else:
+            # HTTP-date — compute seconds until then, bounded.
+            from email.utils import parsedate_to_datetime
+            when = parsedate_to_datetime(raw)
+            secs = int(when.timestamp() - time.time())
+        return max(1, min(secs, default_wait))
+    except Exception:
+        return default_wait
+
 
 # ── Text helpers ─────────────────────────────────────────────────────────
 

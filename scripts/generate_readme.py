@@ -156,7 +156,7 @@ def main():
     json_path = base / "docs" / "papers.json"
 
     papers = research_config.load_papers(papers_yaml)
-    cfg = research_config.load_config()
+    cfg = research_config.require_valid_config()
 
     generate_readme(papers, readme_path, cfg, check_mode=args.check)
 

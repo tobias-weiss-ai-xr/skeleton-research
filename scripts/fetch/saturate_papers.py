@@ -267,7 +267,7 @@ def run_round(yaml_path, data, papers, by_id, titles_lower, queries, round_num, 
 
 
 def main():
-    cfg = research_config.load_config()
+    cfg = research_config.require_valid_config()
     queries = get_queries(cfg)
     relevance_keywords = load_relevance_keywords(cfg)
 

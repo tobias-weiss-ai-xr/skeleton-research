@@ -137,7 +137,7 @@ def main():
                         help="Output file path (default: repos.yaml)")
     args = parser.parse_args()
 
-    cfg = research_config.load_config()
+    cfg = research_config.require_valid_config()
     queries = load_github_queries(cfg)
 
     if not queries:

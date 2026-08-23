@@ -38,7 +38,7 @@ TREND_KEYWORDS = [
     "skill", "tool", "embodied", "stochastic", "causal",
 ]
 # Config-driven keywords override TREND_KEYWORDS when taxonomy.yaml defines them.
-_CFG = research_config.load_config()
+_CFG = research_config.require_valid_config()
 TREND_KEYWORDS = research_config.get_trend_keywords(_CFG) or TREND_KEYWORDS
 
 

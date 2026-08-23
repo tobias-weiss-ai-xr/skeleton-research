@@ -7,3 +7,6 @@ __pycache__/
 papers.json
 statistics.json
 docs/topics/
+
+# Generated citation export
+paper/

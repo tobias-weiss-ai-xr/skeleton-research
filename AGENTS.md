@@ -23,9 +23,16 @@ for a research topic: papers live in `papers.yaml`, everything else is generated
    python3 scripts/standard_stats.py && \
    python3 scripts/analysis/generate_reports.py
    ```
+   (Equivalently: `make all`, which also runs tests and freshness checks.)
 5. **Validate before committing:** `python3 scripts/validate_papers.py` must
    exit 0. Fix errors (schema, duplicates, URL normalization) — do not
    bypass validation.
+6. **Run the unit tests before committing:** `python3 -m pytest` must pass.
+   If you touched pipeline *scripts* (not just data), add/adjust tests under
+   `tests/` for any pure functions you changed.
+7. **If you added a script**, document it in the README's discovery/utility
+   table and this structure block; give it an argparse CLI and pass
+   `config/taxonomy.yaml` through `research_config`.
 
 ## Adding a paper (agent checklist)
 
@@ -50,9 +57,18 @@ scripts/generate_readme.py    ← README.md + docs/papers.json from papers.yaml
 scripts/standard_stats.py     ← statistics.json + papers.json + graph data
 scripts/analysis/generate_reports.py → docs/research/{literature_review,trends}.md
 scripts/fetch/                ← arXiv/OpenAlex/dblp/crossref/europepmc/GitHub/GitLab/Codeberg discovery
+scripts/fetch/repos_common.py ← shared repo-fetcher logic (HTTP retry, relevance)
+tests/                        ← pytest unit suite (`python3 -m pytest`)
+Makefile                      ← task runner: `make validate|check|generate|test|all`
 tools/                        ← topic_planner, trend_scanner, landscape_analyzer, brief_generator
 docs/index.html               ← GitHub Pages paper browser (reads docs/papers.json)
 ```
+
+## Freshness gates (`--check`)
+
+`generate_readme.py`, `standard_stats.py`, and `analysis/generate_reports.py`
+all support a non-destructive `--check` mode (exit 1 if output is stale) used
+by CI and `make check`. Run them after touching data or category scripts.
 
 ## Common agent tasks
 

@@ -33,7 +33,7 @@ def _display(kebab):
     return d
 
 
-_CFG = research_config.load_config()
+_CFG = research_config.require_valid_config()
 
 
 def load_papers():
