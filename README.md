@@ -28,6 +28,7 @@
 | 🐙 **GitHub repos discovery** | `scripts/fetch/fetch_github_repos.py` (optional, config-driven via `github_queries` in taxonomy.yaml) |
 | 🦊 **GitLab projects discovery** | `scripts/fetch/fetch_gitlab_repos.py` (optional, config-driven via `gitlab_queries` in taxonomy.yaml) |
 | 🏠 **Codeberg repos discovery** | `scripts/fetch/fetch_codeberg_repos.py` (optional, config-driven via `codeberg_queries` in taxonomy.yaml) |
+| 📰 **News / intelligence digest** | `run_pipeline.py` — RSS/Atom + arXiv + GitHub releases + catalogs (e.g. CISA KEV) → scored, de-duplicated daily digest (`data/latest.md`/`.html`/`.json`) |
 | 🖥️ **GitHub Pages site** | `docs/index.html` — searchable, filterable paper browser |
 | 🤖 **Agentic workflow** | `AGENTS.md` + `config/taxonomy.yaml` make this repo agent-friendly by design |
 
@@ -106,6 +107,39 @@ python3 scripts/analysis/generate_reports.py --check
 # Unit tests
 python3 -m pytest
 ```
+
+## 📰 News / Intelligence Digest (`run_pipeline.py`)
+
+A complementary pipeline that ingests **RSS/Atom feeds**, **arXiv queries**,
+**GitHub release feeds**, and **structured catalogs** (e.g. CISA KEV), then
+classifies + scores each item, de-duplicates against a seen-history, and renders
+a daily digest (`data/latest.md`, `data/latest.html`, `data/raw.json`).
+
+```bash
+python3 run_pipeline.py --dry-run   # ingest + score only (no writes)
+python3 run_pipeline.py              # full run → writes digest + marks seen
+python3 run_pipeline.py --top 30     # smaller digest
+```
+
+Sources, weights and keyword classification live in `config/sources.yml`.
+
+### Anti-saturation controls
+
+Without guards, static catalogs (CISA KEV's 1,600+ entry list) and full-archive
+feeds (Snyk's 1,600+ post history) recycle old items every run, and one
+high-volume feed (e.g. a project blog) can crowd out everything else. Three
+config knobs in `config/sources.yml` prevent this:
+
+| Knob | Effect |
+|------|--------|
+| `recent_days` (per source) / `default_recent_days` | Drop items published/added older than N days. Applied to RSS + catalog sources; **opt in only on archive/catalog feeds** — normal blogs already return recent items, so leave the default at `0` to avoid starving low-frequency, high-signal feeds. |
+| `max_items` (per source) | Hard cap on raw items kept from one source (e.g. 15 for an archive feed). |
+| `max_source_share` (global) | Hard ceiling on how many digest slots a single source may occupy (default `0.40` → no source takes >40% of the digest). |
+
+> Why `default_recent_days: 0`? Only archive/catalog feeds recycle. A blanket
+> window would silently drop infrequent but high-signal feeds (e.g. Project
+> Zero, which posts monthly). Set `recent_days` explicitly on the feeds that
+> need it.
 
 ## 🔎 Discovery & utility scripts
 

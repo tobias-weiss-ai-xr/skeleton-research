@@ -11,6 +11,9 @@ concept_graph.json
 docs/topics/
 docs/research/concept_map.md
 
+# News / intelligence ingestion pipeline outputs (regenerated each run)
+data/
+
 # Generated citation export
 paper/
 concept_graph_analysis.json

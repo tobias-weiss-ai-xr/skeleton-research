@@ -16,7 +16,7 @@
 PY      ?= python3
 REPO    := $(CURDIR)
 
-.PHONY: help validate check generate test discover all
+.PHONY: help validate check generate test discover digest all
 
 help: ## List available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | \
@@ -42,5 +42,11 @@ test: ## Run the unit test suite
 
 discover: ## Fetch new arXiv papers & create a PR (needs GITHUB_TOKEN/GH_TOKEN)
 	python3 scripts/fetch/fetch_new_papers.py --months 1 --create-pr
+
+digest: ## Run the news/intelligence ingestion pipeline (writes data/)
+	$(PY) run_pipeline.py
+
+digest-dry: ## Dry-run the ingestion pipeline (no writes, no seen)
+	$(PY) run_pipeline.py --dry-run
 
 all: validate check generate test ## Run the full local pipeline
