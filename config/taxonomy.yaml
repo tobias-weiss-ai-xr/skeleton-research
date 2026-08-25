@@ -144,11 +144,19 @@ openalex_queries:
 # ── Subclassification keywords (optional) ─────────────────────────
 # Maps subcategory IDs to keyword lists for auto-classification in
 # fetch_new_papers.py and fetch_other_sources.py.  The first matching
-# rule wins.  If omitted, fetchers fall back to heuristic rules.
-# Each ``id`` must match a subcategory defined above.
+# rule wins.  If omitted, fetchers fall back to category defaults.
+# Each ``id`` MUST match a subcategory defined above (research_config
+# rejects unknown ids), e.g. for the skeleton taxonomy:
 #
 # subcategory_keywords:
-#   - id: theory
-#     keywords: ["theory", "formal", "proof", "convergence", "bound"]
-#   - id: method
-#     keywords: ["method", "algorithm", "framework", "novel approach"]
+#   - id: agentic
+#     keywords: ["autonomous", "agent", "tool use", "multi-agent"]
+#   - id: non-agentic
+#     keywords: ["classifier", "regression", "embedding", "pipeline"]
+#   - id: hybrid
+#     keywords: ["agentic", "mixed-initiative", "human-in-the-loop"]
+#
+# Pro-tip: give each subcategory in ``taxonomy.subcategories`` an optional
+# ``category`` field (its parent category id).  Then classify_subcategory()
+# narrows keyword rules to the paper's own category and never tags a paper
+# with a subcategory belonging to a different category.
