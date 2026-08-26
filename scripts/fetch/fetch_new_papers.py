@@ -11,7 +11,15 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import requests
+import hashlib
+import os
+import pickle
+
 import yaml
+try:
+    from yaml import CSafeLoader as _LOADER
+except ImportError:
+    _LOADER = yaml.SafeLoader
 
 import research_config
 
@@ -102,11 +110,23 @@ def classify_subcategory(title, abstract="", cfg=None, category=None):
     return subs[0]["id"] if subs else ""
 
 
+# ── Dedup cache (shared logic with fetch_openalex_bulk.py) ───────────────
+_DEDUP_DIR = Path(os.environ.get("XDG_CACHE_HOME", "~/.cache")) / "research-runner/dedup"
+
+def _cache_path(yaml_path):
+    st = yaml_path.stat()
+    h = f"{yaml_path}_{st.st_mtime:.0f}_{st.st_size}"
+    return _DEDUP_DIR / f"{hashlib.md5(h.encode()).hexdigest()}.pkl"
+
 def load_existing_papers(yaml_path):
     if not yaml_path.exists():
         return {}, []
+    cp = _cache_path(yaml_path)
+    if cp.exists():
+        with open(cp, "rb") as f:
+            return pickle.load(f)
     with open(yaml_path, "r", encoding="utf-8") as f:
-        data = yaml.safe_load(f) or {}
+        data = yaml.load(f, Loader=_LOADER) or {}
     papers = data.get("papers", [])
     by_id = {}
     titles_lower = []
@@ -116,6 +136,9 @@ def load_existing_papers(yaml_path):
         if match:
             by_id[match.group(1)] = p
         titles_lower.append(p.get("title", "").lower().strip())
+    _DEDUP_DIR.mkdir(parents=True, exist_ok=True)
+    with open(cp, "wb") as f:
+        pickle.dump((by_id, titles_lower), f, protocol=pickle.HIGHEST_PROTOCOL)
     return by_id, titles_lower
 
 
