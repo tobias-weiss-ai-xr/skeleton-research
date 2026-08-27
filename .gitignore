@@ -18,3 +18,6 @@ data/
 paper/
 concept_graph_analysis.json
 docs/research/concept_graph_analysis.md
+
+# verify_sources.py audit report (generated)
+verify-sources-report.json
