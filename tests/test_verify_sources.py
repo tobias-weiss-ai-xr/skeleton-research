@@ -46,6 +46,8 @@ def _fake_get(url, **kw):
         return _FakeResp(404)
     if "block.example" in url:
         return _FakeResp(403)
+    if "rate.example" in url:
+        return _FakeResp(429)
     if "down.example" in url:
         raise requests.exceptions.ConnectionError("x")
     if "slow.example" in url:
@@ -58,7 +60,54 @@ def test_http_check_classification():
         assert vs.http_check("https://ok.example", 5, vs.DEFAULT_UA)["kind"] == "ok"
         assert vs.http_check("https://dead.example", 5, vs.DEFAULT_UA)["kind"] == "broken"
         assert vs.http_check("https://block.example", 5, vs.DEFAULT_UA)["kind"] == "uncertain"
+        assert vs.http_check("https://rate.example", 5, vs.DEFAULT_UA)["kind"] == "uncertain"
         assert vs.http_check("https://down.example", 5, vs.DEFAULT_UA)["kind"] == "broken"
+
+
+def test_run_rate_limit_is_botblock_not_broken(tmp_path):
+    papers = [{"title": "R", "url": "https://rate.example/r"}]
+    cfg = _write_cfg(tmp_path, papers)
+    with mock.patch("requests.get", side_effect=_fake_get):
+        totals, results, status = vs.run(cfg, str(tmp_path / "x.json"))
+    assert totals["broken"] == 0 and totals["botblock"] == 1 and status == 0
+
+
+def test_run_fails_early_sets_status_on_broken(tmp_path):
+    papers = [
+        {"title": "B", "url": "https://dead.example/b"},
+        {"title": "A", "url": "https://ok.example/a"},
+    ]
+    cfg = {
+        "inputs": [{"file": "papers.yaml", "format": "yaml", "list_key": "papers",
+                    "id_field": "title", "url_fields": ["url"]}],
+        "settings": {"browser": False, "fail_on_broken": True, "fail_early": True,
+                     "workers": 1, "per_host_delay": 0,
+                     "report": str(tmp_path / "r.json")},
+    }
+    (tmp_path / "papers.yaml").write_text(json.dumps({"papers": papers}))
+    with mock.patch("requests.get", side_effect=_fake_get):
+        totals, results, status = vs.run(cfg, str(tmp_path / "x.json"))
+    assert status == 1
+    assert any(r.verdict == "broken" for r in results)
+
+
+def test_run_no_fail_early_collects_all(tmp_path):
+    papers = [
+        {"title": "B", "url": "https://dead.example/b"},
+        {"title": "A", "url": "https://ok.example/a"},
+    ]
+    cfg = {
+        "inputs": [{"file": "papers.yaml", "format": "yaml", "list_key": "papers",
+                    "id_field": "title", "url_fields": ["url"]}],
+        "settings": {"browser": False, "fail_on_broken": True, "fail_early": False,
+                     "workers": 1, "per_host_delay": 0,
+                     "report": str(tmp_path / "r.json")},
+    }
+    (tmp_path / "papers.yaml").write_text(json.dumps({"papers": papers}))
+    with mock.patch("requests.get", side_effect=_fake_get):
+        totals, results, status = vs.run(cfg, str(tmp_path / "x.json"))
+    assert status == 1
+    assert len(results) == 2  # with --no-fail-early every link is still checked
 
 
 def test_resolve_verdict():
@@ -74,8 +123,8 @@ def _write_cfg(tmp_path, papers):
     return {
         "inputs": [{"file": "papers.yaml", "format": "yaml", "list_key": "papers",
                     "id_field": "title", "url_fields": ["url", "code_url"]}],
-        "settings": {"browser": False, "fail_on_broken": True,
-                     "report": str(tmp_path / "r.json")},
+        "settings": {"browser": False, "fail_on_broken": True, "per_host_delay": 0,
+                     "workers": 4, "fail_early": False, "report": str(tmp_path / "r.json")},
     }
 
 
