@@ -39,17 +39,25 @@ concurrency:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ci-host]
     steps:
       - uses: actions/checkout@v4
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-validate-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: pip install pyyaml requests
+      - name: Install dependencies (cached)
+        run: pip install pyyaml requests --quiet
 
       - name: Validate config + papers.yaml
         continue-on-error: false
@@ -75,24 +83,32 @@ jobs:
             || { echo 'Concept graph failed to build — check tools/extract_concepts.py + tools/relate_concepts.py + tools/analyze_concept_graph.py'; exit 1; }
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ci-host]
     steps:
       - uses: actions/checkout@v4
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-test-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies (incl. pytest)
-        run: pip install -r requirements.txt pytest
+      - name: Install dependencies (cached)
+        run: pip install -r requirements.txt pytest --quiet
 
       - name: Run unit tests
         run: python3 -m pytest
 
   discover:
     if: github.event_name == 'schedule'
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ci-host]
     permissions:
       contents: write
       pull-requests: write
@@ -119,7 +135,7 @@ jobs:
         run: python3 scripts/fetch/fetch_new_papers.py --months 1 --create-pr
 
   pages:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ci-host]
     needs: validate
     if: github.ref == 'refs/heads/main'
     permissions:
