@@ -40,6 +40,12 @@ generate: ## Regenerate all derived outputs
 test: ## Run the unit test suite
 	$(PY) -m pytest
 
+test-v: ## Run the unit test suite with verbose output
+	$(PY) -m pytest -v
+
+test-watch: ## Continuously re-run tests on file changes
+	watch -n 2 '$(PY) -m pytest'
+
 discover: ## Fetch new arXiv papers & create a PR (needs GITHUB_TOKEN/GH_TOKEN)
 	python3 scripts/fetch/fetch_new_papers.py --months 1 --create-pr
 
