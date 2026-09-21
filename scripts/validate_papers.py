@@ -123,7 +123,9 @@ def validate_papers(data, cfg, fix=False, sort=False):
                     fixed += 1
 
     if not papers:
-        errors.append("papers.yaml contains no papers under the 'papers' key")
+        # Empty corpus is a valid starting state (fresh fork); CI only fails
+        # on real problems, not on "no papers yet".
+        warnings.append("papers.yaml contains no papers under the 'papers' key")
         return errors, warnings, fixed, papers
 
     for i, paper in enumerate(papers):

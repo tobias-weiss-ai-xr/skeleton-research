@@ -1,6 +1,6 @@
 # Literature Review
 
-**Generated:** 2026-08-25  
+**Generated:** 2026-09-21  
 **Corpus:** 5 papers across 4 categories
 
 > Synthesis of the corpus. Category insights are grounded in title/abstract analysis of the papers themselves.
@@ -26,9 +26,9 @@
 | Category | Total | Last 12m | Prior 12m | Growth | 12-m share | Papers/mo |
 |----------|------:|---------:|----------:|-------:|----------:|----------:|
 | Application | 1 | 1 | 0 | — | 100% | 0.1 |
-| Evaluation | 1 | 1 | 0 | — | 100% | 0.1 |
 | Method | 1 | 1 | 0 | — | 100% | 0.1 |
 | Survey | 2 | 1 | 1 | +0% | 50% | 0.1 |
+| Evaluation | 1 | 0 | 1 | -100% | 0% | 0.0 |
 
 ---
 

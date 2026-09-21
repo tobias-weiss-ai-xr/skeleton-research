@@ -9,6 +9,13 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import pytest
+
+# The digest pipeline is optional machinery (run_pipeline.py): skip its tests
+# gracefully when feedparser isn't installed, instead of failing `make test`
+# for a whole fork just because of one non-core dependency.
+pytest.importorskip("feedparser")
+
 REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))

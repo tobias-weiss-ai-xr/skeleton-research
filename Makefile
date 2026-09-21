@@ -4,6 +4,7 @@
 # idempotent and safe to re-run.
 #
 # Usage:
+#   make bootstrap   # give the repo its own identity (edit taxonomy.yaml first)
 #   make validate     # validate config + papers.yaml
 #   make check        # fail if generated outputs are stale (CI gate)
 #   make generate     # regenerate all derived outputs (README, stats, reports)
@@ -16,11 +17,14 @@
 PY      ?= python3
 REPO    := $(CURDIR)
 
-.PHONY: help validate check generate test discover digest all
+.PHONY: help bootstrap validate check generate test discover digest all
 
 help: ## List available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; {printf "  %-12s %s\n", $$1, $$2}'
+
+bootstrap: ## Give the repo its own identity (edit config/taxonomy.yaml first)
+	$(PY) tools/bootstrap.py
 
 validate: ## Validate config + papers.yaml
 	$(PY) scripts/research_config.py

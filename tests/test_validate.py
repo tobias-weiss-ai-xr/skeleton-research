@@ -209,7 +209,10 @@ def test_validate_fix_normalizes_arxiv_url(cfg):
     assert data["papers"][0]["url"] == "https://arxiv.org/abs/2501.00001"
 
 
-def test_no_papers_is_error(cfg):
+def test_no_papers_is_warning(cfg):
+    # Empty corpus is a valid starting state (fresh fork): warning, not
+    # error — CI stays green until real papers land.
     data = {"papers": []}
-    errors, _, _, _ = vp.validate_papers(data, cfg)
-    assert any("no papers" in e for e in errors)
+    errors, warnings, _, _ = vp.validate_papers(data, cfg)
+    assert errors == []
+    assert any("no papers" in w for w in warnings)

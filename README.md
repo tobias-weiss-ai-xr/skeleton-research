@@ -44,6 +44,7 @@ cd my-topic-research
 # 2. Define your topic & taxonomy
 #    Edit config/taxonomy.yaml: topic name, categories, subcategories, queries
 vim config/taxonomy.yaml
+make bootstrap   # rewrite README/HTML/CITATION identity tokens from the topic
 
 # 3. Seed your corpus (start small — 5-10 papers is fine)
 #    Either hand-curate papers.yaml, or auto-discover:
@@ -245,7 +246,7 @@ Sources: **arXiv** 5 (100%).
 |----------|--------|--------|-|
 | survey | **2** | 1 | ████████████ |
 | application | **1** | 1 | ██████░░░░░░ |
-| evaluation | **1** | 1 | ██████░░░░░░ |
+| evaluation | **1** | 0 | ██████░░░░░░ |
 | method | **1** | 1 | ██████░░░░░░ |
 
 ### By year
@@ -260,20 +261,18 @@ Sources: **arXiv** 5 (100%).
 | Category | Total | Rate | Recent | Score |
 |----------|-------|------|--------|-------|
 | Application | 1 | 0.1/mo | 100% | 100 |
-| Evaluation | 1 | 0.1/mo | 100% | 100 |
 | Method | 1 | 0.1/mo | 100% | 100 |
 | Survey | 2 | 0.1/mo | 50% | 50 |
+| Evaluation | 1 | 0.0/mo | 0% | -100 |
 
 ### Trending keywords
 
 | Keyword | Papers | Burst |
 |---------|--------|-------|
-| benchmark | 1 | 1.25 |
-| evaluation | 1 | 1.25 |
-| method | 1 | 1.25 |
-| application | 1 | 1.25 |
-| survey | 1 | 0.62 |
-| analysis | 1 | 0.62 |
+| method | 1 | 1.67 |
+| application | 1 | 1.67 |
+| survey | 1 | 0.83 |
+| analysis | 1 | 0.83 |
 
 ### Research gaps (thinnest cells)
 
@@ -285,7 +284,7 @@ Sources: **arXiv** 5 (100%).
 | `evaluation/hybrid` | 1 |
 | `survey/non-agentic` | 1 |
 
-*Generated 2026-08 by `scripts/standard_stats.py`.*
+*Generated 2026-09 by `scripts/standard_stats.py`.*
 
 <!-- END CORPUS STATISTICS -->
 
