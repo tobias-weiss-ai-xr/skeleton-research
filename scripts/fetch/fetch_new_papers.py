@@ -112,7 +112,7 @@ def classify_subcategory(title, abstract="", cfg=None, category=None):
 
 
 # ── Dedup cache (shared logic with fetch_openalex_bulk.py) ───────────────
-_DEDUP_DIR = Path(os.environ.get("XDG_CACHE_HOME", "~/.cache")) / "research-runner/dedup"
+_DEDUP_DIR = Path(os.path.expanduser(os.environ.get("XDG_CACHE_HOME", "~/.cache"))) / "research-runner/dedup"
 
 def _cache_path(yaml_path):
     st = yaml_path.stat()
@@ -189,7 +189,7 @@ def search_arxiv(query, months, start=0, max_results=100, max_retries=4):
                 entry["title"] = re.sub(r"\s+", " ", title_m.group(1).strip())
             id_m = re.search(r"<id>(.*?)</id>", entry_xml)
             if id_m:
-                entry["url"] = id_m.group(1).strip().replace("http://", "https://")
+                entry["url"] = re.sub(r"v\d+$", "", id_m.group(1).strip().replace("http://", "https://"))
             published_m = re.search(r"<published>(.*?)</published>", entry_xml)
             if published_m:
                 entry["date"] = published_m.group(1).strip()[:7]

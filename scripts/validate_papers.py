@@ -214,6 +214,11 @@ def validate_papers(data, cfg, fix=False, sort=False):
                         )
                         break
 
+        if str(paper.get("title", "")).startswith("Example Paper"):
+            warnings.append(
+                f"{prefix}placeholder paper from the skeleton — delete or replace it"
+            )
+
         url = paper.get("url", "")
         if url and VANITY_DOMAINS.search(url):
             warnings.append(

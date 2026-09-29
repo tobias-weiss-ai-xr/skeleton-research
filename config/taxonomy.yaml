@@ -44,9 +44,14 @@ taxonomy:
 #     category: manipulation
 #     subcategory_hint: method
 arxiv_queries:
-  - 'cat:cs.AI AND (abs:"YOUR TOPIC A" OR abs:"YOUR TOPIC B")'
-  - 'cat:cs.CL AND (abs:"YOUR TOPIC C" AND abs:"agent")'
-  - 'cat:cs.LG AND abs:"YOUR TOPIC D"'
+  # Give every query a category, otherwise discovered papers get category: ""
+  # and validate_papers.py fails until you fill it in by hand.
+  - query: 'cat:cs.AI AND (abs:"YOUR TOPIC A" OR abs:"YOUR TOPIC B")'
+    category: method
+  - query: 'cat:cs.CL AND (abs:"YOUR TOPIC C" AND abs:"agent")'
+    category: application
+  - query: 'cat:cs.LG AND abs:"YOUR TOPIC D"'
+    category: evaluation
 
 # ── Discovery: multi-source queries (fetch_other_sources.py) ─────────────────
 # Each entry defines one query against a source (dblp, crossref, europepmc, …).
