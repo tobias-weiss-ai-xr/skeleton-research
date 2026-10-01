@@ -1,70 +1,917 @@
 papers:
-- title: 'Example Paper 1: A Foundational Survey of Your Topic'
-  date: 2026-01
-  url: https://arxiv.org/abs/2601.00001
-  category: survey
-  subcategory: hybrid
-  authors:
-  - Example Author A
-  - Example Author B
-  venue: ''
-  code_url: ''
-  project_url: ''
-  abstract: This is a placeholder abstract. Replace it with a real summary of the
-    paper. The corpus pipeline uses title/abstract text for trend analysis, so keep
-    abstracts accurate.
-  tags: []
-- title: 'Example Paper 2: An Agentic Method for Your Topic'
-  date: 2026-03
-  url: https://arxiv.org/abs/2603.00002
+- title: Characteristic Classes Of Representations Of Lie Groups
+  date: 2026-02
+  url: https://arxiv.org/abs/2602.02145
   category: method
-  subcategory: agentic
+  subcategory: representation
   authors:
-  - Example Author C
+  - Rohit Joshi
+  - Steven Spallone
   venue: ''
   code_url: ''
   project_url: ''
-  abstract: Another placeholder abstract. Papers are grouped by (category, subcategory)
-    and sorted by year in the generated README.
+  abstract: An irreducible representation of a reductive Lie algebra, when restricted to a
+    Cartan subalgebra, decomposes into weights with multiplicity. The first part of this paper
+    outlines a procedure to compute symmetric polynomials (e.g., power sums) of this multiset
+    of weights, as functions of the highest weight. Next, let G be a connected reductive complex
+    algebraic group with maximal torus T. We express the restrictions of the Chern classes
+    of irreducible representations of G to T, as polynomial functions in the highest weight.
+    We do the same for Stiefel-Whitney classes of orthogonal representations.
   tags: []
-- title: 'Example Paper 3: Application Study in Your Domain'
-  date: 2025-11
-  url: https://arxiv.org/abs/2511.00003
-  category: application
-  subcategory: non-agentic
-  authors:
-  - Example Author D
-  - Example Author E
-  venue: ''
-  code_url: ''
-  project_url: ''
-  abstract: A third placeholder. Once you add real papers, re-run the pipeline to
-    regenerate statistics and reports.
-  tags: []
-- title: 'Example Paper 4: An Evaluation Benchmark for Your Topic'
-  date: 2025-08
-  url: https://arxiv.org/abs/2508.00004
+- title: 'Platonic Transformers: A Solid Choice For Equivariance'
+  date: 2025-10
+  url: https://arxiv.org/abs/2510.03511
   category: evaluation
-  subcategory: hybrid
+  subcategory: equivariant
   authors:
-  - Example Author F
+  - Mohammad Mohaiminul Islam
+  - Rishabh Anand
+  - David R. Wessels
+  - Friso de Kruiff
+  - Thijs P. Kuipers
+  - Rex Ying
+  - Clara I. Sánchez
+  - Sharvaree Vadgama
+  - Georg Bökman
+  - Erik J. Bekkers
   venue: ''
   code_url: ''
   project_url: ''
-  abstract: A placeholder abstract. This example demonstrates the evaluation category
-    with a hybrid subcategory. Replace with a real summary once you add actual papers.
+  abstract: While widespread, Transformers lack inductive biases for geometric symmetries
+    common in science and computer vision. Existing equivariant methods often sacrifice the
+    efficiency and flexibility that make Transformers so effective through complex, computationally
+    intensive designs. We introduce the Platonic Transformer to resolve this trade-off. By
+    defining attention relative to reference frames from the Platonic solid symmetry groups,
+    our method induces a principled weight-sharing scheme. This enables combined equivariance
+    to continuous translations and Platonic symmetries, while preserving the exact architecture
+    and computational cost of a standard Transformer. Furthermore, we show that this attention
+    is formally equivalent to a dynamic group convolution, which reveals that the model learns
+    adaptive geometric filters and enables a highly scalable, linear-time convolutional variant.
+    Across diverse benchmarks in computer vision (CIFAR-10), 3D point clouds (ScanObjectNN),
+    and molecular property prediction (QM9, OMol25), the Platonic Transformer achieves competitive
+    performance by leveraging these geometric constraints at no additional cost.
   tags: []
-- title: 'Example Paper 5: A Survey of Your Topic Across Domains'
-  date: 2025-05
-  url: https://arxiv.org/abs/2505.00005
-  category: survey
-  subcategory: non-agentic
+- title: E(n) Equivariant Topological Neural Networks
+  date: 2024-05
+  url: https://arxiv.org/abs/2405.15429
+  category: method
+  subcategory: equivariant
   authors:
-  - Example Author G
-  - Example Author H
+  - Claudio Battiloro
+  - Ege Karaismailoğlu
+  - Mauricio Tec
+  - George Dasoulas
+  - Michelle Audirac
+  - Francesca Dominici
   venue: ''
   code_url: ''
   project_url: ''
-  abstract: Another placeholder abstract. The corpus pipeline uses title/abstract
-    text for trend analysis, so keep abstracts accurate when you add real papers.
+  abstract: 'Graph neural networks excel at modeling pairwise interactions, but they cannot
+    flexibly accommodate higher-order interactions and features. Topological deep learning
+    (TDL) has emerged recently as a promising tool for addressing this issue. TDL enables
+    the principled modeling of arbitrary multi-way, hierarchical higher-order interactions
+    by operating on combinatorial topological spaces, such as simplicial or cell complexes,
+    instead of graphs. However, little is known about how to leverage geometric features such
+    as positions and velocities for TDL. This paper introduces E(n)-Equivariant Topological
+    Neural Networks (ETNNs), which are E(n)-equivariant message-passing networks operating
+    on combinatorial complexes, formal objects unifying graphs, hypergraphs, simplicial, path,
+    and cell complexes. ETNNs incorporate geometric node features while respecting rotation,
+    reflection, and translation equivariance. Moreover, being TDL models, ETNNs are natively
+    ready for settings with heterogeneous interactions. We provide a theoretical analysis
+    to show the improved expressiveness of ETNNs over architectures for geometric graphs.
+    We also show how E(n)-equivariant variants of TDL models can be directly derived from
+    our framework. The broad applicability of ETNNs is demonstrated through two tasks of vastly
+    different scales: i) molecular property prediction on the QM9 benchmark and ii) land-use
+    regression for hyper-local estimation of air pollution with multi-resolution irregular
+    geospatial data. The results indicate that ETNNs are an effective tool for learning from
+    diverse types of richly structured data, as they match or surpass SotA equivariant TDL
+    models with a significantly smaller computational burden, thus highlighting the benefits
+    of a principled geometric inductive bias. Our implementation of ETNNs can be found at
+    https://github.com/NSAPH-Projects/topological-equivariant-networks.'
+  tags: []
+- title: Using Multiple Vector Channels Improves E(n)-Equivariant Graph Neural Networks
+  date: 2023-09
+  url: https://arxiv.org/abs/2309.03139
+  category: evaluation
+  subcategory: equivariant
+  authors:
+  - Daniel Levy
+  - Sékou-Oumar Kaba
+  - Carmelo Gonzales
+  - Santiago Miret
+  - Siamak Ravanbakhsh
+  venue: ICML 2024
+  code_url: ''
+  project_url: ''
+  abstract: We present a natural extension to E(n)-equivariant graph neural networks that
+    uses multiple equivariant vectors per node. We formulate the extension and show that it
+    improves performance across different physical systems benchmark tasks, with minimal differences
+    in runtime or number of parameters. The proposed multichannel EGNN outperforms the standard
+    singlechannel EGNN on N-body charged particle dynamics, molecular property predictions,
+    and predicting the trajectories of solar system bodies. Given the additional benefits
+    and minimal additional cost of multi-channel EGNN, we suggest that this extension may
+    be of practical use to researchers working in machine learning for the physical sciences
+  tags: []
+- title: Internal symmetries in Kaluza-Klein models
+  date: 2023-06
+  url: https://arxiv.org/abs/2306.01049
+  category: application
+  subcategory: physics
+  authors:
+  - Joao Baptista
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: The usual approach to Kaluza-Klein considers a spacetime of the form M_4 \times
+    K and identifies the isometry group of the internal vacuum metric, g_K⁰, with the gauge
+    group in four dimensions. In these notes we discuss a variant approach where part of the
+    gauge group does not come from full isometries of g_K⁰, but instead comes from weaker
+    internal symmetries that only preserve the Einstein-Hilbert action on K. Then the weaker
+    symmetries are spontaneously broken by the choice of vacuum metric and generate massive
+    gauge bosons within the Kaluza-Klein framework, with no need to introduce ad hoc Higgs
+    fields. Using the language of Riemannian submersions, the classical mass of a gauge boson
+    is calculated in terms of the Lie derivatives of g_K⁰. These massive bosons can be arbitrarily
+    light and seem able to evade the standard no-go arguments against chiral fermionic interactions
+    in Kaluza-Klein. As a second main theme, we also question the traditional assumption of
+    a Kaluza-Klein vacuum represented by a product Einstein metric. This should not be true
+    when that metric is unstable. In fact, we argue that the unravelling of the Einstein metric
+    along certain instabilities is a desirable feature of the model, since it generates inflation
+    and allows some metric components to change length scale. In the case of the Lie group
+    K = SU(3), the unravelling of the bi-invariant metric along an unstable perturbation also
+    breaks the isometry group from ( SU(3) \times SU(3)) / Z_3 down to ( SU(3) \times SU(2)
+    \times U(1) )/ Z_6, the gauge group of the Standard Model. We briefly discuss possible
+    ways to stabilize the internal metric after that first symmetry breaking and produce an
+    electroweak symmetry breaking at a different mass scale.
+  tags: []
+- title: Learning Lagrangian Fluid Mechanics with E(3)-Equivariant Graph Neural Networks
+  date: 2023-05
+  url: https://arxiv.org/abs/2305.15603
+  category: application
+  subcategory: equivariant
+  authors:
+  - Artur P. Toshev
+  - Gianluca Galletti
+  - Johannes Brandstetter
+  - Stefan Adami
+  - Nikolaus A. Adams
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: We contribute to the vastly growing field of machine learning for engineering
+    systems by demonstrating that equivariant graph neural networks have the potential to
+    learn more accurate dynamic-interaction models than their non-equivariant counterparts.
+    We benchmark two well-studied fluid-flow systems, namely 3D decaying Taylor-Green vortex
+    and 3D reverse Poiseuille flow, and evaluate the models based on different performance
+    measures, such as kinetic energy or Sinkhorn distance. In addition, we investigate different
+    embedding methods of physical-information histories for equivariant models. We find that
+    while currently being rather slow to train and evaluate, equivariant models with our proposed
+    history embeddings learn more accurate physical interactions.
+  tags: []
+- title: Dirac series for complex E_8
+  date: 2023-05
+  url: https://arxiv.org/abs/2305.03254
+  category: method
+  subcategory: classical
+  authors:
+  - Dan Barbasch
+  - Kayue Daniel Wong
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: In this paper, we classify all unitary representations with non-zero Dirac cohomology
+    for complex Lie group of Type E8. This completes the classification of Dirac series for
+    all complex simple Lie groups.
+  tags: []
+- title: Geometrical aspects of lattice gauge equivariant convolutional neural networks
+  date: 2023-03
+  url: https://arxiv.org/abs/2303.11448
+  category: application
+  subcategory: physics
+  authors:
+  - Jimmy Aronsson
+  - David I. Müller
+  - Daniel Schuh
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: Lattice gauge equivariant convolutional neural networks (L-CNNs) are a framework
+    for convolutional neural networks that can be applied to non-Abelian lattice gauge theories
+    without violating gauge symmetry. We demonstrate how L-CNNs can be equipped with global
+    group equivariance. This allows us to extend the formulation to be equivariant not just
+    under translations but under global lattice symmetries such as rotations and reflections.
+    Additionally, we provide a geometric formulation of L-CNNs and show how convolutions in
+    L-CNNs arise as a special case of gauge equivariant neural networks on SU(N) principal
+    bundles.
+  tags: []
+- title: E(3) Equivariant Graph Neural Networks for Particle-Based Fluid Mechanics
+  date: 2023-03
+  url: https://arxiv.org/abs/2304.00150
+  category: application
+  subcategory: equivariant
+  authors:
+  - Artur P. Toshev
+  - Gianluca Galletti
+  - Johannes Brandstetter
+  - Stefan Adami
+  - Nikolaus A. Adams
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: We contribute to the vastly growing field of machine learning for engineering
+    systems by demonstrating that equivariant graph neural networks have the potential to
+    learn more accurate dynamic-interaction models than their non-equivariant counterparts.
+    We benchmark two well-studied fluid flow systems, namely the 3D decaying Taylor-Green
+    vortex and the 3D reverse Poiseuille flow, and compare equivariant graph neural networks
+    to their non-equivariant counterparts on different performance measures, such as kinetic
+    energy or Sinkhorn distance. Such measures are typically used in engineering to validate
+    numerical solvers. Our main findings are that while being rather slow to train and evaluate,
+    equivariant models learn more physically accurate interactions. This indicates opportunities
+    for future work towards coarse-grained models for turbulent flows, and generalization
+    across system dynamics and parameters.
+  tags: []
+- title: Gauge Equivariant Neural Networks for 2+1D U(1) Gauge Theory Simulations in Hamiltonian
+    Formulation
+  date: 2022-11
+  url: https://arxiv.org/abs/2211.03198
+  category: application
+  subcategory: physics
+  authors:
+  - Di Luo
+  - Shunyue Yuan
+  - James Stokes
+  - Bryan K. Clark
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: Gauge Theory plays a crucial role in many areas in science, including high energy
+    physics, condensed matter physics and quantum information science. In quantum simulations
+    of lattice gauge theory, an important step is to construct a wave function that obeys
+    gauge symmetry. In this paper, we have developed gauge equivariant neural network wave
+    function techniques for simulating continuous-variable quantum lattice gauge theories
+    in the Hamiltonian formulation. We have applied the gauge equivariant neural network approach
+    to find the ground state of 2+1-dimensional lattice gauge theory with U(1) gauge group
+    using variational Monte Carlo. We have benchmarked our approach against the state-of-the-art
+    complex Gaussian wave functions, demonstrating improved performance in the strong coupling
+    regime and comparable results in the weak coupling regime.
+  tags: []
+- title: 'MACE: Higher Order Equivariant Message Passing Neural Networks for Fast and Accurate
+    Force Fields'
+  date: 2022-06
+  url: https://arxiv.org/abs/2206.07697
+  category: application
+  subcategory: equivariant
+  authors:
+  - Ilyes Batatia
+  - Dávid Péter Kovács
+  - Gregor N. C. Simm
+  - Christoph Ortner
+  - Gábor Csányi
+  venue: NeurIPS 2022
+  code_url: ''
+  project_url: ''
+  abstract: Creating fast and accurate force fields is a long-standing challenge in computational
+    chemistry and materials science. Recently, several equivariant message passing neural
+    networks (MPNNs) have been shown to outperform models built using other approaches in
+    terms of accuracy. However, most MPNNs suffer from high computational cost and poor scalability.
+    We propose that these limitations arise because MPNNs only pass two-body messages leading
+    to a direct relationship between the number of layers and the expressivity of the network.
+    In this work, we introduce MACE, a new equivariant MPNN model that uses higher body order
+    messages. In particular, we show that using four-body messages reduces the required number
+    of message passing iterations to just two, resulting in a fast and highly parallelizable
+    model, reaching or exceeding state-of-the-art accuracy on the rMD17, 3BPA, and AcAc benchmark
+    tasks. We also demonstrate that using higher order messages leads to an improved steepness
+    of the learning curves.
+  tags: []
+- title: 'Equiformer: Equivariant Graph Attention Transformer for 3D Atomistic Graphs'
+  date: 2022-06
+  url: https://arxiv.org/abs/2206.11990
+  category: application
+  subcategory: equivariant
+  authors:
+  - Yi-Lun Liao
+  - Tess Smidt
+  venue: ICLR 2023
+  code_url: ''
+  project_url: ''
+  abstract: Despite their widespread success in various domains, Transformer networks have
+    yet to perform well across datasets in the domain of 3D atomistic graphs such as molecules
+    even when 3D-related inductive biases like translational invariance and rotational equivariance
+    are considered. In this paper, we demonstrate that Transformers can generalize well to
+    3D atomistic graphs and present Equiformer, a graph neural network leveraging the strength
+    of Transformer architectures and incorporating SE(3)/E(3)-equivariant features based on
+    irreducible representations (irreps). First, we propose a simple and effective architecture
+    by only replacing original operations in Transformers with their equivariant counterparts
+    and including tensor products. Using equivariant operations enables encoding equivariant
+    information in channels of irreps features without complicating graph structures. With
+    minimal modifications to Transformers, this architecture has already achieved strong empirical
+    results. Second, we propose a novel attention mechanism called equivariant graph attention,
+    which improves upon typical attention in Transformers through replacing dot product attention
+    with multi-layer perceptron attention and including non-linear message passing. With these
+    two innovations, Equiformer achieves competitive results to previous models on QM9, MD17
+    and OC20 datasets.
+  tags: []
+- title: Frame Averaging for Invariant and Equivariant Network Design
+  date: 2021-10
+  url: https://arxiv.org/abs/2110.03336
+  category: method
+  subcategory: equivariant
+  authors:
+  - Omri Puny
+  - Matan Atzmon
+  - Heli Ben-Hamu
+  - Ishan Misra
+  - Aditya Grover
+  - Edward J. Smith
+  - Yaron Lipman
+  venue: NeurIPS 2021
+  code_url: ''
+  project_url: ''
+  abstract: Many machine learning tasks involve learning functions that are known to be invariant
+    or equivariant to certain symmetries of the input data. However, it is often challenging
+    to design neural network architectures that respect these symmetries while being expressive
+    and computationally efficient. For example, Euclidean motion invariant/equivariant graph
+    or point cloud neural networks. We introduce Frame Averaging (FA), a general purpose and
+    systematic framework for adapting known (backbone) architectures to become invariant or
+    equivariant to new symmetry types. Our framework builds on the well known group averaging
+    operator that guarantees invariance or equivariance but is intractable. In contrast, we
+    observe that for many important classes of symmetries, this operator can be replaced with
+    an averaging operator over a small subset of the group elements, called a frame. We show
+    that averaging over a frame guarantees exact invariance or equivariance while often being
+    much simpler to compute than averaging over the entire group. Furthermore, we prove that
+    FA-based models have maximal expressive power in a broad setting and in general preserve
+    the expressive power of their backbone architectures. Using frame averaging, we propose
+    a new class of universal Graph Neural Networks (GNNs), universal Euclidean motion invariant
+    point cloud networks, and Euclidean motion invariant Message Passing (MP) GNNs. We demonstrate
+    the practical effectiveness of FA on several applications including point cloud normal
+    estimation, beyond 2-WL graph separation, and n-body dynamics prediction, achieving state-of-the-art
+    results in all of these benchmarks.
+  tags: []
+- title: Geometric Deep Learning and Equivariant Neural Networks
+  date: 2021-05
+  url: https://arxiv.org/abs/2105.13926
+  category: survey
+  subcategory: equivariant
+  authors:
+  - Jan E. Gerken
+  - Jimmy Aronsson
+  - Oscar Carlsson
+  - Hampus Linander
+  - Fredrik Ohlsson
+  - Christoffer Petersson
+  - Daniel Persson
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: We survey the mathematical foundations of geometric deep learning, focusing on
+    group equivariant and gauge equivariant neural networks. We develop gauge equivariant
+    convolutional neural networks on arbitrary manifolds M using principal bundles with structure
+    group K and equivariant maps between sections of associated vector bundles. We also discuss
+    group equivariant neural networks for homogeneous spaces M=G/K, which are instead equivariant
+    with respect to the global symmetry G on M. Group equivariant layers can be interpreted
+    as intertwiners between induced representations of G, and we show their relation to gauge
+    equivariant convolutional layers. We analyze several applications of this formalism, including
+    semantic segmentation and object detection networks. We also discuss the case of spherical
+    networks in great detail, corresponding to the case M=S²=SO(3)/SO(2). Here we emphasize
+    the use of Fourier analysis involving Wigner matrices, spherical harmonics and Clebsch-Gordan
+    coefficients for G=SO(3), illustrating the power of representation theory for deep learning.
+  tags: []
+- title: 'Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges'
+  date: 2021-04
+  url: https://arxiv.org/abs/2104.13478
+  category: survey
+  subcategory: equivariant
+  authors:
+  - Michael M. Bronstein
+  - Joan Bruna
+  - Taco Cohen
+  - Petar Veličković
+  venue: Nature
+  code_url: ''
+  project_url: ''
+  abstract: 'The last decade has witnessed an experimental revolution in data science and
+    machine learning, epitomised by deep learning methods. Indeed, many high-dimensional learning
+    tasks previously thought to be beyond reach -- such as computer vision, playing Go, or
+    protein folding -- are in fact feasible with appropriate computational scale. Remarkably,
+    the essence of deep learning is built from two simple algorithmic principles: first, the
+    notion of representation or feature learning, whereby adapted, often hierarchical, features
+    capture the appropriate notion of regularity for each task, and second, learning by local
+    gradient-descent type methods, typically implemented as backpropagation. While learning
+    generic functions in high dimensions is a cursed estimation problem, most tasks of interest
+    are not generic, and come with essential pre-defined regularities arising from the underlying
+    low-dimensionality and structure of the physical world. This text is concerned with exposing
+    these regularities through unified geometric principles that can be applied throughout
+    a wide spectrum of applications. Such a ''geometric unification'' endeavour, in the spirit
+    of Felix Klein''s Erlangen Program, serves a dual purpose: on one hand, it provides a
+    common mathematical framework to study the most successful neural network architectures,
+    such as CNNs, RNNs, GNNs, and Transformers. On the other hand, it gives a constructive
+    procedure to incorporate prior physical knowledge into neural architectures and provide
+    principled way to build future architectures yet to be invented.'
+  tags: []
+- title: E(n) Equivariant Graph Neural Networks
+  date: 2021-02
+  url: https://arxiv.org/abs/2102.09844
+  category: method
+  subcategory: equivariant
+  authors:
+  - Victor Garcia Satorras
+  - Emiel Hoogeboom
+  - Max Welling
+  venue: NeurIPS 2021
+  code_url: ''
+  project_url: ''
+  abstract: This paper introduces a new model to learn graph neural networks equivariant to
+    rotations, translations, reflections and permutations called E(n)-Equivariant Graph Neural
+    Networks (EGNNs). In contrast with existing methods, our work does not require computationally
+    expensive higher-order representations in intermediate layers while it still achieves
+    competitive or better performance. In addition, whereas existing methods are limited to
+    equivariance on 3 dimensional spaces, our model is easily scaled to higher-dimensional
+    spaces. We demonstrate the effectiveness of our method on dynamical systems modelling,
+    representation learning in graph autoencoders and predicting molecular properties.
+  tags: []
+- title: E(3)-Equivariant Graph Neural Networks for Data-Efficient and Accurate Interatomic
+    Potentials
+  date: 2021-01
+  url: https://arxiv.org/abs/2101.03164
+  category: application
+  subcategory: equivariant
+  authors:
+  - Simon Batzner
+  - Albert Musaelian
+  - Lixin Sun
+  - Mario Geiger
+  - Jonathan P. Mailoa
+  - Mordechai Kornbluth
+  - Nicola Molinari
+  - Tess E. Smidt
+  - Boris Kozinsky
+  venue: Nature Communications 2022
+  code_url: ''
+  project_url: ''
+  abstract: This work presents Neural Equivariant Interatomic Potentials (NequIP), an E(3)-equivariant
+    neural network approach for learning interatomic potentials from ab-initio calculations
+    for molecular dynamics simulations. While most contemporary symmetry-aware models use
+    invariant convolutions and only act on scalars, NequIP employs E(3)-equivariant convolutions
+    for interactions of geometric tensors, resulting in a more information-rich and faithful
+    representation of atomic environments. The method achieves state-of-the-art accuracy on
+    a challenging and diverse set of molecules and materials while exhibiting remarkable data
+    efficiency. NequIP outperforms existing models with up to three orders of magnitude fewer
+    training data, challenging the widely held belief that deep neural networks require massive
+    training sets. The high data efficiency of the method allows for the construction of accurate
+    potentials using high-order quantum chemical level of theory as reference and enables
+    high-fidelity molecular dynamics simulations over long time scales.
+  tags: []
+- title: 'LieTransformer: Equivariant self-attention for Lie Groups'
+  date: 2020-12
+  url: https://arxiv.org/abs/2012.10885
+  category: method
+  subcategory: equivariant
+  authors:
+  - Michael Hutchinson
+  - Charline Le Lan
+  - Sheheryar Zaidi
+  - Emilien Dupont
+  - Yee Whye Teh
+  - Hyunjik Kim
+  venue: ICML 2021
+  code_url: ''
+  project_url: ''
+  abstract: 'Group equivariant neural networks are used as building blocks of group invariant
+    neural networks, which have been shown to improve generalisation performance and data
+    efficiency through principled parameter sharing. Such works have mostly focused on group
+    equivariant convolutions, building on the result that group equivariant linear maps are
+    necessarily convolutions. In this work, we extend the scope of the literature to self-attention,
+    that is emerging as a prominent building block of deep learning models. We propose the
+    LieTransformer, an architecture composed of LieSelfAttention layers that are equivariant
+    to arbitrary Lie groups and their discrete subgroups. We demonstrate the generality of
+    our approach by showing experimental results that are competitive to baseline methods
+    on a wide range of tasks: shape counting on point clouds, molecular property regression
+    and modelling particle trajectories under Hamiltonian dynamics.'
+  tags: []
+- title: Lattice gauge equivariant convolutional neural networks
+  date: 2020-12
+  url: https://arxiv.org/abs/2012.12901
+  category: application
+  subcategory: physics
+  authors:
+  - Matteo Favoni
+  - Andreas Ipp
+  - David I. Müller
+  - Daniel Schuh
+  venue: Physical Review Letters 2022
+  code_url: ''
+  project_url: ''
+  abstract: We propose Lattice gauge equivariant Convolutional Neural Networks (L-CNNs) for
+    generic machine learning applications on lattice gauge theoretical problems. At the heart
+    of this network structure is a novel convolutional layer that preserves gauge equivariance
+    while forming arbitrarily shaped Wilson loops in successive bilinear layers. Together
+    with topological information, for example from Polyakov loops, such a network can in principle
+    approximate any gauge covariant function on the lattice. We demonstrate that L-CNNs can
+    learn and generalize gauge invariant quantities that traditional convolutional neural
+    networks are incapable of finding.
+  tags: []
+- title: 'SE(3)-Transformers: 3D Roto-Translation Equivariant Attention Networks'
+  date: 2020-06
+  url: https://arxiv.org/abs/2006.10503
+  category: application
+  subcategory: equivariant
+  authors:
+  - Fabian B. Fuchs
+  - Daniel E. Worrall
+  - Volker Fischer
+  - Max Welling
+  venue: ICML 2021
+  code_url: ''
+  project_url: ''
+  abstract: We introduce the SE(3)-Transformer, a variant of the self-attention module for
+    3D point clouds and graphs, which is equivariant under continuous 3D roto-translations.
+    Equivariance is important to ensure stable and predictable performance in the presence
+    of nuisance transformations of the data input. A positive corollary of equivariance is
+    increased weight-tying within the model. The SE(3)-Transformer leverages the benefits
+    of self-attention to operate on large point clouds and graphs with varying number of points,
+    while guaranteeing SE(3)-equivariance for robustness. We evaluate our model on a toy N-body
+    particle simulation dataset, showcasing the robustness of the predictions under rotations
+    of the input. We further achieve competitive performance on two real-world datasets, ScanObjectNN
+    and QM9. In all cases, our model outperforms a strong, non-equivariant attention baseline
+    and an equivariant model without attention.
+  tags: []
+- title: 'Roto-Translation Equivariant Convolutional Networks: Application to Histopathology
+    Image Analysis'
+  date: 2020-02
+  url: https://arxiv.org/abs/2002.08725
+  category: application
+  subcategory: equivariant
+  authors:
+  - Maxime W. Lafarge
+  - Erik J. Bekkers
+  - Josien P. W. Pluim
+  - Remco Duits
+  - Mitko Veta
+  venue: CVPR 2020
+  code_url: ''
+  project_url: ''
+  abstract: Rotation-invariance is a desired property of machine-learning models for medical
+    image analysis and in particular for computational pathology applications. We propose
+    a framework to encode the geometric structure of the special Euclidean motion group SE(2)
+    in convolutional networks to yield translation and rotation equivariance via the introduction
+    of SE(2)-group convolution layers. This structure enables models to learn feature representations
+    with a discretized orientation dimension that guarantees that their outputs are invariant
+    under a discrete set of rotations. Conventional approaches for rotation invariance rely
+    mostly on data augmentation, but this does not guarantee the robustness of the output
+    when the input is rotated. At that, trained conventional CNNs may require test-time rotation
+    augmentation to reach their full capability. This study is focused on histopathology image
+    analysis applications for which it is desirable that the arbitrary global orientation
+    information of the imaged tissues is not captured by the machine learning models. The
+    proposed framework is evaluated on three different histopathology image analysis tasks
+    (mitosis detection, nuclei segmentation and tumor classification). We present a comparative
+    analysis for each problem and show that consistent increase of performances can be achieved
+    when using the proposed framework.
+  tags: []
+- title: General E(2)-Equivariant Steerable CNNs
+  date: 2019-11
+  url: https://arxiv.org/abs/1911.08251
+  category: method
+  subcategory: equivariant
+  authors:
+  - Maurice Weiler
+  - Gabriele Cesa
+  venue: NeurIPS 2019
+  code_url: ''
+  project_url: ''
+  abstract: The big empirical success of group equivariant networks has led in recent years
+    to the sprouting of a great variety of equivariant network architectures. A particular
+    focus has thereby been on rotation and reflection equivariant CNNs for planar images.
+    Here we give a general description of E(2)-equivariant convolutions in the framework of
+    Steerable CNNs. The theory of Steerable CNNs thereby yields constraints on the convolution
+    kernels which depend on group representations describing the transformation laws of feature
+    spaces. We show that these constraints for arbitrary group representations can be reduced
+    to constraints under irreducible representations. A general solution of the kernel space
+    constraint is given for arbitrary representations of the Euclidean group E(2) and its
+    subgroups. We implement a wide range of previously proposed and entirely new equivariant
+    network architectures and extensively compare their performances. E(2)-steerable convolutions
+    are further shown to yield remarkable gains on CIFAR-10, CIFAR-100 and STL-10 when used
+    as a drop-in replacement for non-equivariant convolutions.
+  tags: []
+- title: '3D Steerable CNNs: Learning Rotationally Equivariant Features in Volumetric Data'
+  date: 2018-07
+  url: https://arxiv.org/abs/1807.02547
+  category: method
+  subcategory: equivariant
+  authors:
+  - Maurice Weiler
+  - Mario Geiger
+  - Max Welling
+  - Wouter Boomsma
+  - Taco Cohen
+  venue: CVPR 2018
+  code_url: ''
+  project_url: ''
+  abstract: We present a convolutional network that is equivariant to rigid body motions.
+    The model uses scalar-, vector-, and tensor fields over 3D Euclidean space to represent
+    data, and equivariant convolutions to map between such representations. These SE(3)-equivariant
+    convolutions utilize kernels which are parameterized as a linear combination of a complete
+    steerable kernel basis, which is derived analytically in this paper. We prove that equivariant
+    convolutions are the most general equivariant linear maps between fields over ℝ³. Our
+    experimental results confirm the effectiveness of 3D Steerable CNNs for the problem of
+    amino acid propensity prediction and protein structure classification, both of which have
+    inherent SE(3) symmetry.
+  tags: []
+- title: 'Clebsch-Gordan Nets: a Fully Fourier Space Spherical Convolutional Neural Network'
+  date: 2018-06
+  url: https://arxiv.org/abs/1806.09231
+  category: method
+  subcategory: equivariant
+  authors:
+  - Risi Kondor
+  - Zhen Lin
+  - Shubhendu Trivedi
+  venue: ICLR 2018
+  code_url: ''
+  project_url: ''
+  abstract: Recent work by Cohen et al. has achieved state-of-the-art results for learning
+    spherical images in a rotation invariant way by using ideas from group representation
+    theory and noncommutative harmonic analysis. In this paper we propose a generalization
+    of this work that generally exhibits improved performace, but from an implementation point
+    of view is actually simpler. An unusual feature of the proposed architecture is that it
+    uses the Clebsch--Gordan transform as its only source of nonlinearity, thus avoiding repeated
+    forward and backward Fourier transforms. The underlying ideas of the paper generalize
+    to constructing neural networks that are invariant to the action of other compact groups.
+  tags: []
+- title: 'CubeNet: Equivariance to 3D Rotation and Translation'
+  date: 2018-04
+  url: https://arxiv.org/abs/1804.04458
+  category: method
+  subcategory: equivariant
+  authors:
+  - Daniel Worrall
+  - Gabriel Brostow
+  venue: NeurIPS 2018
+  code_url: ''
+  project_url: ''
+  abstract: '3D Convolutional Neural Networks are sensitive to transformations applied to
+    their input. This is a problem because a voxelized version of a 3D object, and its rotated
+    clone, will look unrelated to each other after passing through to the last layer of a
+    network. Instead, an idealized model would preserve a meaningful representation of the
+    voxelized object, while explaining the pose-difference between the two inputs. An equivariant
+    representation vector has two components: the invariant identity part, and a discernable
+    encoding of the transformation. Models that can''t explain pose-differences risk "diluting"
+    the representation, in pursuit of optimizing a classification or regression loss function.
+    We introduce a Group Convolutional Neural Network with linear equivariance to translations
+    and right angle rotations in three dimensions. We call this network CubeNet, reflecting
+    its cube-like symmetry. By construction, this network helps preserve a 3D shape''s global
+    and local signature, as it is transformed through successive layers. We apply this network
+    to a variety of 3D inference problems, achieving state-of-the-art on the ModelNet10 classification
+    challenge, and comparable performance on the ISBI 2012 Connectome Segmentation Benchmark.
+    To the best of our knowledge, this is the first 3D rotation equivariant CNN for voxel
+    representations.'
+  tags: []
+- title: 'Tensor field networks: Rotation- and translation-equivariant neural networks for
+    3D point clouds'
+  date: 2018-02
+  url: https://arxiv.org/abs/1802.08219
+  category: method
+  subcategory: equivariant
+  authors:
+  - Nathaniel Thomas
+  - Tess Smidt
+  - Steven Kearnes
+  - Lusann Yang
+  - Li Li
+  - Kai Kohlhoff
+  - Patrick Riley
+  venue: ICML 2018
+  code_url: ''
+  project_url: ''
+  abstract: We introduce tensor field neural networks, which are locally equivariant to 3D
+    rotations, translations, and permutations of points at every layer. 3D rotation equivariance
+    removes the need for data augmentation to identify features in arbitrary orientations.
+    Our network uses filters built from spherical harmonics; due to the mathematical consequences
+    of this filter choice, each layer accepts as input (and guarantees as output) scalars,
+    vectors, and higher-order tensors, in the geometric sense of these terms. We demonstrate
+    the capabilities of tensor field networks with tasks in geometry, physics, and chemistry.
+  tags: []
+- title: Representations of Compact Lie Groups of Low Cohomogeneity
+  date: 2018-02
+  url: https://arxiv.org/abs/1802.02837
+  category: method
+  subcategory: representation
+  authors:
+  - Francisco J. Gozzi
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: We survey different tools to classify representations of compact Lie groups according
+    to their cohomogeneity and apply these methods to the case of irreducible representations
+    of cohomogeneity 6, 7 and 8.
+  tags: []
+- title: Surface Networks
+  date: 2017-05
+  url: https://arxiv.org/abs/1705.10819
+  category: method
+  subcategory: equivariant
+  authors:
+  - Ilya Kostrikov
+  - Zhongshi Jiang
+  - Daniele Panozzo
+  - Denis Zorin
+  - Joan Bruna
+  venue: CVPR 2018
+  code_url: ''
+  project_url: ''
+  abstract: 'We study data-driven representations for three-dimensional triangle meshes, which
+    are one of the prevalent objects used to represent 3D geometry. Recent works have developed
+    models that exploit the intrinsic geometry of manifolds and graphs, namely the Graph Neural
+    Networks (GNNs) and its spectral variants, which learn from the local metric tensor via
+    the Laplacian operator. Despite offering excellent sample complexity and built-in invariances,
+    intrinsic geometry alone is invariant to isometric deformations, making it unsuitable
+    for many applications. To overcome this limitation, we propose several upgrades to GNNs
+    to leverage extrinsic differential geometry properties of three-dimensional surfaces,
+    increasing its modeling power. In particular, we propose to exploit the Dirac operator,
+    whose spectrum detects principal curvature directions --- this is in stark contrast with
+    the classical Laplace operator, which directly measures mean curvature. We coin the resulting
+    models Surface Networks (SN). We prove that these models define shape representations
+    that are stable to deformation and to discretization, and we demonstrate the efficiency
+    and versatility of SNs on two challenging tasks: temporal prediction of mesh deformations
+    under non-linear dynamics and generative models using a variational autoencoder framework
+    with encoders/decoders given by SNs.'
+  tags: []
+- title: Steerable CNNs
+  date: 2016-12
+  url: https://arxiv.org/abs/1612.08498
+  category: method
+  subcategory: equivariant
+  authors:
+  - Taco S. Cohen
+  - Max Welling
+  venue: ICLR 2017
+  code_url: ''
+  project_url: ''
+  abstract: It has long been recognized that the invariance and equivariance properties of
+    a representation are critically important for success in many vision tasks. In this paper
+    we present Steerable Convolutional Neural Networks, an efficient and flexible class of
+    equivariant convolutional networks. We show that steerable CNNs achieve state of the art
+    results on the CIFAR image classification benchmark. The mathematical theory of steerable
+    representations reveals a type system in which any steerable representation is a composition
+    of elementary feature types, each one associated with a particular kind of symmetry. We
+    show how the parameter cost of a steerable filter bank depends on the types of the input
+    and output features, and show how to use this knowledge to construct CNNs that utilize
+    parameters effectively.
+  tags: []
+- title: 'Harmonic Networks: Deep Translation and Rotation Equivariance'
+  date: 2016-12
+  url: https://arxiv.org/abs/1612.04642
+  category: method
+  subcategory: equivariant
+  authors:
+  - Daniel E. Worrall
+  - Stephan J. Garbin
+  - Daniyar Turmukhambetov
+  - Gabriel J. Brostow
+  venue: ICLR 2017
+  code_url: ''
+  project_url: ''
+  abstract: 'Translating or rotating an input image should not affect the results of many
+    computer vision tasks. Convolutional neural networks (CNNs) are already translation equivariant:
+    input image translations produce proportionate feature map translations. This is not the
+    case for rotations. Global rotation equivariance is typically sought through data augmentation,
+    but patch-wise equivariance is more difficult. We present Harmonic Networks or H-Nets,
+    a CNN exhibiting equivariance to patch-wise translation and 360-rotation. We achieve this
+    by replacing regular CNN filters with circular harmonics, returning a maximal response
+    and orientation for every receptive field patch. H-Nets use a rich, parameter-efficient
+    and low computational complexity representation, and we show that deep feature maps within
+    the network encode complicated rotational invariants. We demonstrate that our layers are
+    general enough to be used in conjunction with the latest architectures and techniques,
+    such as deep supervision and batch normalization. We also achieve state-of-the-art classification
+    on rotated-MNIST, and competitive results on other benchmark challenges.'
+  tags: []
+- title: Group Equivariant Convolutional Networks
+  date: 2016-02
+  url: https://arxiv.org/abs/1602.07576
+  category: method
+  subcategory: equivariant
+  authors:
+  - Taco S. Cohen
+  - Max Welling
+  venue: ICML 2016
+  code_url: ''
+  project_url: ''
+  abstract: We introduce Group equivariant Convolutional Neural Networks (G-CNNs), a natural
+    generalization of convolutional neural networks that reduces sample complexity by exploiting
+    symmetries. G-CNNs use G-convolutions, a new type of layer that enjoys a substantially
+    higher degree of weight sharing than regular convolution layers. G-convolutions increase
+    the expressive capacity of the network without increasing the number of parameters. Group
+    convolution layers are easy to use and can be implemented with negligible computational
+    overhead for discrete groups generated by translations, reflections and rotations. G-CNNs
+    achieve state of the art results on CIFAR10 and rotated MNIST.
+  tags: []
+- title: The Higgs boson for mathematicians. Lecture notes on gauge theory and symmetry breaking
+  date: 2015-12
+  url: https://arxiv.org/abs/1512.02632
+  category: survey
+  subcategory: physics
+  authors:
+  - M. J. D. Hamilton
+  venue: AMS Graduate Studies in Mathematics
+  code_url: ''
+  project_url: ''
+  abstract: These notes form part of a lecture course on gauge theory. The material covered
+    is standard in the physics literature, but perhaps less well-known to mathematicians.
+    The purpose of these notes is to make spontaneous symmetry breaking and the Higgs mechanism
+    of mass generation for elementary particles more easily accessible to mathematicians interested
+    in theoretical physics. We treat the general case with an arbitrary compact gauge group
+    G and an arbitrary number of Higgs bosons and explain the situation in the classic case
+    of the electroweak interaction where G=SU(2)xU(1). Prerequisites are only a basic knowledge
+    of Lie groups and manifolds. No prior knowledge of gauge theory or bundle theory is assumed.
+  tags: []
+- title: 'Stepwise Square Integrable Representations: the Concept and Some Consequences'
+  date: 2015-11
+  url: https://arxiv.org/abs/1511.09064
+  category: method
+  subcategory: representation
+  authors:
+  - Joseph A. Wolf
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: There are some new developments on Plancherel formula and growth of matrix coefficients
+    for unitary representations of nilpotent Lie groups. These have several consequences for
+    the geometry of weakly symmetric spaces and analysis on parabolic subgroups of real semisimple
+    Lie groups, and to (infinite dimensional) locally nilpotent Lie groups. Many of these
+    consequences are still under development. In this note I'll survey a few of these new
+    aspects of representation theory for nilpotent Lie groups and parabolic subgroups.
+  tags: []
+- title: Towards a Lie theory for locally convex groups
+  date: 2015-01
+  url: https://arxiv.org/abs/1501.06269
+  category: method
+  subcategory: classical
+  authors:
+  - Karl-Hermann Neeb
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: In this survey, we report on the state of the art of some of the fundamental problems
+    in the Lie theory of Lie groups modeled on locally convex spaces, such as integrability
+    of Lie algebras, integrability of Lie subalgebras to Lie subgroups, and integrability
+    of Lie algebra extensions to Lie group extensions. We further describe how regularity
+    or local exponentiality of a Lie group can be used to obtain quite satisfying answers
+    to some of the fundamental problems. These results are illustrated by specialization to
+    some specific classes of Lie groups, such as direct limit groups, linear Lie groups, groups
+    of smooth maps and groups of diffeomorphisms.
+  tags: []
+- title: A survey on Weyl calculus for representations of nilpotent Lie groups
+  date: 2009-10
+  url: https://arxiv.org/abs/0910.1994
+  category: survey
+  subcategory: classical
+  authors:
+  - Ingrid Beltita
+  - Daniel Beltita
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: We survey some aspects of the pseudo-differential Weyl calculus for irreducible
+    unitary representations of nilpotent Lie groups, ranging from the classical ideas to recently
+    obtained results. The classical Weyl-Hörmander calculus is recovered for the Schrödinger
+    representation of the Heisenberg group. Our discussion concerns various extensions of
+    this classical situation to arbitrary nilpotent Lie groups and to some infinite-dimensional
+    Lie groups that allow us to handle the magnetic pseudo-differential calculus.
+  tags: []
+- title: The Orbit Method for Compact Connected Lie Groups
+  date: 2009-06
+  url: https://arxiv.org/abs/0906.4915
+  category: method
+  subcategory: representation
+  authors:
+  - Matthias Peter
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: The goal of this diploma thesis is to give a detailed description of Kirillov's
+    Orbit Method for the case of compact connected Lie groups. The theory of Kirillov aims
+    at finding all irreducible unitary representations of a given Lie group G. The first chapter
+    is intended to recall some facts about Lie groups. The most important result is that for
+    a functional λ on the Lie algebra \mathfrak t of a maximal torus in a compact connected
+    Lie group the stabilizer is of the form C(T_1) for a smaller torus T_1. This allows us
+    to define a complex structure on the coadjoint orbit \mathcal O_λ= G/C(T_1). In the second
+    chapter we present the Borel-Weil Theorem which tells us that all irreducible unitary
+    representations of a compact connected Lie group can be realized in the space of holomorphic
+    sections of the bundle G\times_τ\mathbb C, where τ is a character of a maximal torus.
+    Finally, in the third chapter we show that coadjoint orbits are symplectic manifolds for
+    which prequantization yields a complex line bundle. Then we investigate for which classes
+    of coadjoint orbits one obtains representations in the space of polarized sections of
+    the prequantum bundle. This will lead us back to the result of Borel-Weil.
+  tags: []
+- title: Abelian ideals in a Borel subalgebra of a complex simple Lie algebra
+  date: 2002-10
+  url: https://arxiv.org/abs/math/0210463
+  category: method
+  subcategory: classical
+  authors:
+  - Ruedi Suter
+  venue: ''
+  code_url: ''
+  project_url: ''
+  abstract: Let g be a complex simple Lie algebra and b a fixed Borel subalgebra of g. We
+    shall describe the abelian ideals of b in a uniform way, that is, independent of the classification
+    of complex simple Lie algebras.
   tags: []

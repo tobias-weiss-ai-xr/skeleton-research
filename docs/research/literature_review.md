@@ -1,7 +1,7 @@
 # Literature Review
 
-**Generated:** 2026-09-21  
-**Corpus:** 5 papers across 4 categories
+**Generated:** 2026-10-01  
+**Corpus:** 37 papers across 4 categories
 
 > Synthesis of the corpus. Category insights are grounded in title/abstract analysis of the papers themselves.
 
@@ -11,13 +11,13 @@
 
 | Rank | Category | Papers |
 |------|----------|--------|
-| 1 | Surveys & Taxonomies | 2 |
-| 2 | Methods & Architectures | 1 |
-| 3 | Applications | 1 |
-| 4 | Evaluation & Benchmarks | 1 |
+| 1 | Theory & Representation | 20 |
+| 2 | Applications | 11 |
+| 3 | Surveys & Frameworks | 4 |
+| 4 | Evaluation & Benchmarks | 2 |
 
-**Time span:** 2025–2026 (median year 2026)
-**Dominant aspects:** Hybrid (2), Non-Agentic (2), Agentic (1)
+**Time span:** 2002–2026 (median year 2020)
+**Dominant aspects:** Equivariant & Geometric ML (24), Physics & Geometry (5), Representation Theory (4)
 
 ---
 
@@ -25,10 +25,10 @@
 
 | Category | Total | Last 12m | Prior 12m | Growth | 12-m share | Papers/mo |
 |----------|------:|---------:|----------:|-------:|----------:|----------:|
-| Application | 1 | 1 | 0 | — | 100% | 0.1 |
-| Method | 1 | 1 | 0 | — | 100% | 0.1 |
-| Survey | 2 | 1 | 1 | +0% | 50% | 0.1 |
-| Evaluation | 1 | 0 | 1 | -100% | 0% | 0.0 |
+| Evaluation | 2 | 1 | 0 | — | 50% | 0.1 |
+| Method | 20 | 1 | 0 | — | 5% | 0.1 |
+| Application | 11 | 0 | 0 | — | 0% | 0.0 |
+| Survey | 4 | 0 | 0 | — | 0% | 0.0 |
 
 ---
 
@@ -36,55 +36,64 @@
 
 | Cell | Papers |
 |------|--------:|
-| `survey/hybrid` | 1 |
-| `method/agentic` | 1 |
-| `application/non-agentic` | 1 |
-| `evaluation/hybrid` | 1 |
-| `survey/non-agentic` | 1 |
+| `survey/physics` | 1 |
+| `survey/classical` | 1 |
+| `evaluation/equivariant` | 2 |
+| `survey/equivariant` | 2 |
+| `method/classical` | 3 |
+| `method/representation` | 4 |
+| `application/physics` | 4 |
+| `application/equivariant` | 7 |
 
 ---
 
 
 ## Category Insights
 
-### Surveys & Taxonomies (`survey`)
+### Theory & Representation (`method`)
 
-**Corpus size:** 2 papers
-
-**Recent papers:**
-
-- [2026-01] Example Paper 1: A Foundational Survey of Your Topic — https://arxiv.org/abs/2601.00001
-- [2025-05] Example Paper 5: A Survey of Your Topic Across Domains — https://arxiv.org/abs/2505.00005
-
----
-
-### Methods & Architectures (`method`)
-
-**Corpus size:** 1 papers
+**Corpus size:** 20 papers
 
 **Recent papers:**
 
-- [2026-03] Example Paper 2: An Agentic Method for Your Topic — https://arxiv.org/abs/2603.00002
+- [2026-02] Characteristic Classes Of Representations Of Lie Groups — https://arxiv.org/abs/2602.02145
+- [2024-05] E(n) Equivariant Topological Neural Networks — https://arxiv.org/abs/2405.15429
+- [2023-05] Dirac series for complex E_8 — https://arxiv.org/abs/2305.03254
 
 ---
 
 ### Applications (`application`)
 
-**Corpus size:** 1 papers
+**Corpus size:** 11 papers
 
 **Recent papers:**
 
-- [2025-11] Example Paper 3: Application Study in Your Domain — https://arxiv.org/abs/2511.00003
+- [2023-06] Internal symmetries in Kaluza-Klein models — https://arxiv.org/abs/2306.01049
+- [2023-05] Learning Lagrangian Fluid Mechanics with E(3)-Equivariant Graph Neural Networks — https://arxiv.org/abs/2305.15603
+- [2023-03] Geometrical aspects of lattice gauge equivariant convolutional neural networks — https://arxiv.org/abs/2303.11448
+
+---
+
+### Surveys & Frameworks (`survey`)
+
+**Corpus size:** 4 papers
+
+**Recent papers:**
+
+- [2021-05] Geometric Deep Learning and Equivariant Neural Networks — https://arxiv.org/abs/2105.13926
+- [2021-04] Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges — https://arxiv.org/abs/2104.13478
+- [2015-12] The Higgs boson for mathematicians. Lecture notes on gauge theory and symmetry breaking — https://arxiv.org/abs/1512.02632
 
 ---
 
 ### Evaluation & Benchmarks (`evaluation`)
 
-**Corpus size:** 1 papers
+**Corpus size:** 2 papers
 
 **Recent papers:**
 
-- [2025-08] Example Paper 4: An Evaluation Benchmark for Your Topic — https://arxiv.org/abs/2508.00004
+- [2025-10] Platonic Transformers: A Solid Choice For Equivariance — https://arxiv.org/abs/2510.03511
+- [2023-09] Using Multiple Vector Channels Improves E(n)-Equivariant Graph Neural Networks — https://arxiv.org/abs/2309.03139
 
 ---
 

@@ -1,7 +1,7 @@
 <h1 align="center">
-  <strong>Research Corpus Skeleton</strong>
+  <strong>Lie Groups: Theory & Applications</strong>
 </h1>
-<h3 align="center">Agentic literature review, jump-started — fork me for your own topic</h3>
+<h3 align="center">Data-driven literature review corpus — from classical structure theory and representation theory to equivariant/geometric machine learning and gauge-theoretic physics</h3>
 
 ### 🔗 Links
 
@@ -10,9 +10,9 @@
 - **GitHub Pages**: https://<YOUR_ORG>.github.io/<YOUR_REPO>/
 
 
-> 🎓 **Workshop-ready:** This repository is the *skeleton* for a data-driven,
-> auto-validated, agentic literature review — the same architecture used by the
-> `*-research` corpus repos (agent-memory, agent-skill, agent-learning, …).
+> 📚 **Corpus:** 37 curated, auto-validated papers on Lie groups — every entry
+> carries a real, verifiable arXiv URL and is fetched from the arXiv API.
+> `papers.yaml` is the source of truth; `make all` regenerates everything.
 
 ## What you get
 
@@ -173,61 +173,176 @@ This repo is designed to be driven by coding agents (OpenCode, Claude Code, …)
 
 ## 📚 Paper list
 
-- [📚 Methods & Architectures](#methods-&-architectures)
-  - [Agentic](#agentic)
+- [📚 Surveys & Frameworks](#surveys-&-frameworks)
+  - [Classical Theory & Structure](#classical-theory-&-structure)
+  - [Equivariant & Geometric ML](#equivariant-&-geometric-ml)
+  - [Physics & Geometry](#physics-&-geometry)
+- [📚 Theory & Representation](#theory-&-representation)
+  - [Classical Theory & Structure](#classical-theory-&-structure)
+  - [Representation Theory](#representation-theory)
+  - [Equivariant & Geometric ML](#equivariant-&-geometric-ml)
 - [📚 Applications](#applications)
-  - [Non-Agentic](#non-agentic)
+  - [Equivariant & Geometric ML](#equivariant-&-geometric-ml)
+  - [Physics & Geometry](#physics-&-geometry)
 - [📚 Evaluation & Benchmarks](#evaluation-&-benchmarks)
-  - [Hybrid](#hybrid)
-- [📚 Surveys & Taxonomies](#surveys-&-taxonomies)
-  - [Non-Agentic](#non-agentic)
-  - [Hybrid](#hybrid)
+  - [Equivariant & Geometric ML](#equivariant-&-geometric-ml)
 
-### Methods & Architectures
+### Surveys & Frameworks
 
-#### Agentic
+#### Classical Theory & Structure
+
+##### 2009
+
+- [2009] **A survey on Weyl calculus for representations of nilpotent Lie groups** [[paper](https://arxiv.org/abs/0910.1994)]
+
+[⬆ Back to top](#paper-list)
+
+#### Equivariant & Geometric ML
+
+##### 2021
+
+- [2021] **Geometric Deep Learning and Equivariant Neural Networks** [[paper](https://arxiv.org/abs/2105.13926)]
+- [2021] **Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges** *Nature* [[paper](https://arxiv.org/abs/2104.13478)]
+
+[⬆ Back to top](#paper-list)
+
+#### Physics & Geometry
+
+##### 2015
+
+- [2015] **The Higgs boson for mathematicians. Lecture notes on gauge theory and symmetry breaking** *AMS Graduate Studies in Mathematics* [[paper](https://arxiv.org/abs/1512.02632)]
+
+[⬆ Back to top](#paper-list)
+
+### Theory & Representation
+
+#### Classical Theory & Structure
+
+##### 2023
+
+- [2023] **Dirac series for complex E_8** [[paper](https://arxiv.org/abs/2305.03254)]
+
+##### 2015
+
+- [2015] **Towards a Lie theory for locally convex groups** [[paper](https://arxiv.org/abs/1501.06269)]
+
+##### 2002
+
+- [2002] **Abelian ideals in a Borel subalgebra of a complex simple Lie algebra** [[paper](https://arxiv.org/abs/math/0210463)]
+
+[⬆ Back to top](#paper-list)
+
+#### Representation Theory
 
 ##### 2026
 
-- [2026] **Example Paper 2: An Agentic Method for Your Topic** [[paper](https://arxiv.org/abs/2603.00002)]
+- [2026] **Characteristic Classes Of Representations Of Lie Groups** [[paper](https://arxiv.org/abs/2602.02145)]
+
+##### 2018
+
+- [2018] **Representations of Compact Lie Groups of Low Cohomogeneity** [[paper](https://arxiv.org/abs/1802.02837)]
+
+##### 2015
+
+- [2015] **Stepwise Square Integrable Representations: the Concept and Some Consequences** [[paper](https://arxiv.org/abs/1511.09064)]
+
+##### 2009
+
+- [2009] **The Orbit Method for Compact Connected Lie Groups** [[paper](https://arxiv.org/abs/0906.4915)]
+
+[⬆ Back to top](#paper-list)
+
+#### Equivariant & Geometric ML
+
+##### 2024
+
+- [2024] **E(n) Equivariant Topological Neural Networks** [[paper](https://arxiv.org/abs/2405.15429)]
+
+##### 2021
+
+- [2021] **Frame Averaging for Invariant and Equivariant Network Design** *NeurIPS 2021* [[paper](https://arxiv.org/abs/2110.03336)]
+- [2021] **E(n) Equivariant Graph Neural Networks** *NeurIPS 2021* [[paper](https://arxiv.org/abs/2102.09844)]
+
+##### 2020
+
+- [2020] **LieTransformer: Equivariant self-attention for Lie Groups** *ICML 2021* [[paper](https://arxiv.org/abs/2012.10885)]
+
+##### 2019
+
+- [2019] **General E(2)-Equivariant Steerable CNNs** *NeurIPS 2019* [[paper](https://arxiv.org/abs/1911.08251)]
+
+##### 2018
+
+- [2018] **3D Steerable CNNs: Learning Rotationally Equivariant Features in Volumetric Data** *CVPR 2018* [[paper](https://arxiv.org/abs/1807.02547)]
+- [2018] **Clebsch-Gordan Nets: a Fully Fourier Space Spherical Convolutional Neural Network** *ICLR 2018* [[paper](https://arxiv.org/abs/1806.09231)]
+- [2018] **CubeNet: Equivariance to 3D Rotation and Translation** *NeurIPS 2018* [[paper](https://arxiv.org/abs/1804.04458)]
+- [2018] **Tensor field networks: Rotation- and translation-equivariant neural networks for 3D point clouds** *ICML 2018* [[paper](https://arxiv.org/abs/1802.08219)]
+
+##### 2017
+
+- [2017] **Surface Networks** *CVPR 2018* [[paper](https://arxiv.org/abs/1705.10819)]
+
+##### 2016
+
+- [2016] **Steerable CNNs** *ICLR 2017* [[paper](https://arxiv.org/abs/1612.08498)]
+- [2016] **Harmonic Networks: Deep Translation and Rotation Equivariance** *ICLR 2017* [[paper](https://arxiv.org/abs/1612.04642)]
+- [2016] **Group Equivariant Convolutional Networks** *ICML 2016* [[paper](https://arxiv.org/abs/1602.07576)]
 
 [⬆ Back to top](#paper-list)
 
 ### Applications
 
-#### Non-Agentic
+#### Equivariant & Geometric ML
 
-##### 2025
+##### 2023
 
-- [2025] **Example Paper 3: Application Study in Your Domain** [[paper](https://arxiv.org/abs/2511.00003)]
+- [2023] **Learning Lagrangian Fluid Mechanics with E(3)-Equivariant Graph Neural Networks** [[paper](https://arxiv.org/abs/2305.15603)]
+- [2023] **E(3) Equivariant Graph Neural Networks for Particle-Based Fluid Mechanics** [[paper](https://arxiv.org/abs/2304.00150)]
+
+##### 2022
+
+- [2022] **MACE: Higher Order Equivariant Message Passing Neural Networks for Fast and Accurate Force Fields** *NeurIPS 2022* [[paper](https://arxiv.org/abs/2206.07697)]
+- [2022] **Equiformer: Equivariant Graph Attention Transformer for 3D Atomistic Graphs** *ICLR 2023* [[paper](https://arxiv.org/abs/2206.11990)]
+
+##### 2021
+
+- [2021] **E(3)-Equivariant Graph Neural Networks for Data-Efficient and Accurate Interatomic Potentials** *Nature Communications 2022* [[paper](https://arxiv.org/abs/2101.03164)]
+
+##### 2020
+
+- [2020] **SE(3)-Transformers: 3D Roto-Translation Equivariant Attention Networks** *ICML 2021* [[paper](https://arxiv.org/abs/2006.10503)]
+- [2020] **Roto-Translation Equivariant Convolutional Networks: Application to Histopathology Image Analysis** *CVPR 2020* [[paper](https://arxiv.org/abs/2002.08725)]
+
+[⬆ Back to top](#paper-list)
+
+#### Physics & Geometry
+
+##### 2023
+
+- [2023] **Internal symmetries in Kaluza-Klein models** [[paper](https://arxiv.org/abs/2306.01049)]
+- [2023] **Geometrical aspects of lattice gauge equivariant convolutional neural networks** [[paper](https://arxiv.org/abs/2303.11448)]
+
+##### 2022
+
+- [2022] **Gauge Equivariant Neural Networks for 2+1D U(1) Gauge Theory Simulations in Hamiltonian Formulation** [[paper](https://arxiv.org/abs/2211.03198)]
+
+##### 2020
+
+- [2020] **Lattice gauge equivariant convolutional neural networks** *Physical Review Letters 2022* [[paper](https://arxiv.org/abs/2012.12901)]
 
 [⬆ Back to top](#paper-list)
 
 ### Evaluation & Benchmarks
 
-#### Hybrid
+#### Equivariant & Geometric ML
 
 ##### 2025
 
-- [2025] **Example Paper 4: An Evaluation Benchmark for Your Topic** [[paper](https://arxiv.org/abs/2508.00004)]
+- [2025] **Platonic Transformers: A Solid Choice For Equivariance** [[paper](https://arxiv.org/abs/2510.03511)]
 
-[⬆ Back to top](#paper-list)
+##### 2023
 
-### Surveys & Taxonomies
-
-#### Non-Agentic
-
-##### 2025
-
-- [2025] **Example Paper 5: A Survey of Your Topic Across Domains** [[paper](https://arxiv.org/abs/2505.00005)]
-
-[⬆ Back to top](#paper-list)
-
-#### Hybrid
-
-##### 2026
-
-- [2026] **Example Paper 1: A Foundational Survey of Your Topic** [[paper](https://arxiv.org/abs/2601.00001)]
+- [2023] **Using Multiple Vector Channels Improves E(n)-Equivariant Graph Neural Networks** *ICML 2024* [[paper](https://arxiv.org/abs/2309.03139)]
 
 [⬆ Back to top](#paper-list)
 
@@ -237,54 +352,79 @@ This repo is designed to be driven by coding agents (OpenCode, Claude Code, …)
 
 ## 📊 Corpus Statistics
 
-**5 papers** across **4 categories**.  
-Sources: **arXiv** 5 (100%).  
+**37 papers** across **4 categories**.  
+Sources: **arXiv** 37 (100%).  
+Full paper list: [GitHub Pages site](https://tobias-weiss-ai-xr.github.io/lie-group-research).
 
 ### Top categories
 
 | Category | Papers | Recent | |
 |----------|--------|--------|-|
-| survey | **2** | 1 | ████████████ |
-| application | **1** | 1 | ██████░░░░░░ |
-| evaluation | **1** | 0 | ██████░░░░░░ |
-| method | **1** | 1 | ██████░░░░░░ |
+| method | **20** | 1 | ████████████ |
+| application | **11** | 0 | ███████░░░░░ |
+| survey | **4** | 0 | ██░░░░░░░░░░ |
+| evaluation | **2** | 1 | █░░░░░░░░░░░ |
 
 ### By year
 
 | Year | Papers | |
 |------|--------|-|
-| 2025 | 3 | ████████████ |
-| 2026 | 2 | ████████░░░░ |
+| 2002 | 1 | ██░░░░░░░░░░ |
+| 2009 | 2 | ████░░░░░░░░ |
+| 2015 | 3 | ██████░░░░░░ |
+| 2016 | 3 | ██████░░░░░░ |
+| 2017 | 1 | ██░░░░░░░░░░ |
+| 2018 | 5 | ██████████░░ |
+| 2019 | 1 | ██░░░░░░░░░░ |
+| 2020 | 4 | ████████░░░░ |
+| 2021 | 5 | ██████████░░ |
+| 2022 | 3 | ██████░░░░░░ |
+| 2023 | 6 | ████████████ |
+| 2024 | 1 | ██░░░░░░░░░░ |
+| 2025 | 1 | ██░░░░░░░░░░ |
+| 2026 | 1 | ██░░░░░░░░░░ |
 
 ### Momentum (hottest categories)
 
 | Category | Total | Rate | Recent | Score |
 |----------|-------|------|--------|-------|
-| Application | 1 | 0.1/mo | 100% | 100 |
-| Method | 1 | 0.1/mo | 100% | 100 |
-| Survey | 2 | 0.1/mo | 50% | 50 |
-| Evaluation | 1 | 0.0/mo | 0% | -100 |
+| Evaluation | 2 | 0.1/mo | 50% | 50 |
+| Method | 20 | 0.1/mo | 5% | 5 |
+| Application | 11 | 0.0/mo | 0% | 0 |
+| Survey | 4 | 0.0/mo | 0% | 0 |
 
 ### Trending keywords
 
 | Keyword | Papers | Burst |
 |---------|--------|-------|
-| method | 1 | 1.67 |
-| application | 1 | 1.67 |
-| survey | 1 | 0.83 |
-| analysis | 1 | 0.83 |
+| group convolution | 1 | 4.62 |
+
+### Top venues
+
+| Venue | Papers |
+|-------|--------|
+| NeurIPS 2021 | 2 |
+| ICML 2021 | 2 |
+| CVPR 2018 | 2 |
+| ICLR 2017 | 2 |
+| ICML 2024 | 1 |
+| NeurIPS 2022 | 1 |
+| ICLR 2023 | 1 |
+| Nature | 1 |
+| Nature Communications 2022 | 1 |
+| Physical Review Letters 2022 | 1 |
 
 ### Research gaps (thinnest cells)
 
 | Cell | Papers |
 |------|--------|
-| `survey/hybrid` | 1 |
-| `method/agentic` | 1 |
-| `application/non-agentic` | 1 |
-| `evaluation/hybrid` | 1 |
-| `survey/non-agentic` | 1 |
+| `survey/physics` | 1 |
+| `survey/classical` | 1 |
+| `evaluation/equivariant` | 2 |
+| `survey/equivariant` | 2 |
+| `method/classical` | 3 |
 
-*Generated 2026-09 by `scripts/standard_stats.py`.*
+*Generated 2026-10 by `scripts/standard_stats.py`.*
 
 <!-- END CORPUS STATISTICS -->
 
