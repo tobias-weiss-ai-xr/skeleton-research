@@ -2,7 +2,9 @@
 
 **Tobias Weiss**  
 **Research Infrastructure Paper**  
-**v1.0 — October 11, 2026**
+**v1.0 — October 11, 2026**  
+**DOI: [10.5281/zenodo.23302654](https://doi.org/10.5281/zenodo.23302654)**  
+**Published on [Zenodo](https://zenodo.org/record/23302654)**
 
 ---
 
