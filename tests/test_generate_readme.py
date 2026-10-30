@@ -1,6 +1,7 @@
 """Unit tests for scripts/generate_readme.py.
 
-Verifies README generation logic on synthetic corpus data. Hermetic.
+Verifies paper-list document generation logic on synthetic corpus data.
+Hermetic.
 """
 
 from pathlib import Path
@@ -60,7 +61,7 @@ def test_generate_json_creates_file(tmp_path, sample_papers):
     """Verify JSON generation writes valid file."""
     json_path = tmp_path / "papers.json"
     gen.generate_json(sample_papers, json_path)
-    
+
     assert json_path.exists()
     import json
     data = json.loads(json_path.read_text())
@@ -73,18 +74,42 @@ def test_generate_json_creates_parent_dirs(tmp_path, sample_papers):
     """Verify JSON generation creates missing parent directories."""
     json_path = tmp_path / "nested" / "dirs" / "papers.json"
     gen.generate_json(sample_papers, json_path)
-    
+
     assert json_path.exists()
 
 
-def test_generate_readme_replaces_section(tmp_path, sample_papers, sample_cfg):
-    """Verify README paper-list section is replaced."""
+def test_generate_paper_list_creates_file(tmp_path, sample_papers, sample_cfg):
+    """Verify paper-list document is created with paper content."""
     readme_path = tmp_path / "README.md"
-    
-    # Create a README with paper-list markers
-    readme_text = f"""# Test Corpus
+    paper_list_path = tmp_path / "docs" / "paper_list.md"
+    readme_path.write_text("# Test Corpus\n\n", encoding="utf-8")
 
-Some intro text.
+    gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=False,
+                        paper_list_path=paper_list_path)
+
+    assert paper_list_path.exists()
+    content = paper_list_path.read_text(encoding="utf-8")
+    assert "Testing Framework Design" in content
+    assert "Property-Based Testing with Hypothesis" in content
+
+
+def test_generate_paper_list_creates_parent_dirs(tmp_path, sample_papers, sample_cfg):
+    """Verify paper-list generation creates missing parent directories."""
+    readme_path = tmp_path / "README.md"
+    paper_list_path = tmp_path / "nested" / "dirs" / "paper_list.md"
+    readme_path.write_text("# Test Corpus\n\n", encoding="utf-8")
+
+    gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=False,
+                        paper_list_path=paper_list_path)
+
+    assert paper_list_path.exists()
+
+
+def test_generate_readme_removes_paper_list_markers(tmp_path, sample_papers, sample_cfg):
+    """Verify paper-list markers are removed from README (migration)."""
+    readme_path = tmp_path / "README.md"
+    paper_list_path = tmp_path / "docs" / "paper_list.md"
+    readme_text = f"""# Test Corpus
 
 {gen.readme_sections.PAPERLIST_START}
 Old content that should be replaced.
@@ -93,58 +118,71 @@ Old content that should be replaced.
 Some footer text.
 """
     readme_path.write_text(readme_text, encoding="utf-8")
-    
-    # Generate
-    gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=False)
-    
+
+    gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=False,
+                        paper_list_path=paper_list_path)
+
     result = readme_path.read_text(encoding="utf-8")
+    assert "PAPER LIST" not in result
     assert "Old content that should be replaced" not in result
-    assert "Testing Framework Design" in result
-    assert "Property-Based Testing with Hypothesis" in result
+    assert "Some footer text" in result
 
 
-def test_generate_readme_no_section_skips_gracefully(tmp_path, sample_papers, sample_cfg):
-    """Verify README with no paper-list section is not modified."""
+def test_generate_readme_no_markers_leaves_readme_unchanged(tmp_path, sample_papers, sample_cfg):
+    """Verify README without paper-list markers is not modified."""
     readme_path = tmp_path / "README.md"
+    paper_list_path = tmp_path / "docs" / "paper_list.md"
     readme_text = "# Test Corpus\n\nNo paper list here.\n"
     readme_path.write_text(readme_text, encoding="utf-8")
-    original = readme_text
-    
-    # This should NOT fail and should NOT modify the file
-    gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=False)
-    
+
+    gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=False,
+                        paper_list_path=paper_list_path)
+
     result = readme_path.read_text(encoding="utf-8")
-    assert result == original
+    assert result == readme_text
 
 
-def test_generate_readme_check_mode_updated(tmp_path, sample_papers, sample_cfg, capsys):
-    """Verify check mode exits 1 when README is out of date."""
+def test_generate_readme_check_mode_updated(tmp_path, sample_papers, sample_cfg):
+    """Verify check mode exits 1 when paper list is out of date."""
     readme_path = tmp_path / "README.md"
-    readme_text = f"""# Test Corpus
+    paper_list_path = tmp_path / "docs" / "paper_list.md"
+    readme_path.write_text("# Test Corpus\n\n", encoding="utf-8")
+    paper_list_path.parent.mkdir(parents=True, exist_ok=True)
+    paper_list_path.write_text("Old content.\n", encoding="utf-8")
 
-{gen.readme_sections.PAPERLIST_START}
-Old content.
-{gen.readme_sections.PAPERLIST_END}
-"""
-    readme_path.write_text(readme_text, encoding="utf-8")
-    
     with pytest.raises(SystemExit) as exc_info:
-        gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=True)
-    
+        gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=True,
+                            paper_list_path=paper_list_path)
+
     assert exc_info.value.code == 1
 
 
-def test_generate_readme_check_mode_current(tmp_path, sample_papers, sample_cfg, capsys):
-    """Verify check mode exits 0 when README is current."""
+def test_generate_readme_check_mode_missing_file(tmp_path, sample_papers, sample_cfg):
+    """Verify check mode exits 1 when paper list file is missing."""
     readme_path = tmp_path / "README.md"
-    
-    # First, generate the README to make it current
+    paper_list_path = tmp_path / "docs" / "paper_list.md"
     readme_path.write_text("# Test Corpus\n\n", encoding="utf-8")
-    gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=False)
-    
+
+    with pytest.raises(SystemExit) as exc_info:
+        gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=True,
+                            paper_list_path=paper_list_path)
+
+    assert exc_info.value.code == 1
+
+
+def test_generate_readme_check_mode_current(tmp_path, sample_papers, sample_cfg):
+    """Verify check mode exits 0 when paper list is current."""
+    readme_path = tmp_path / "README.md"
+    paper_list_path = tmp_path / "docs" / "paper_list.md"
+    readme_path.write_text("# Test Corpus\n\n", encoding="utf-8")
+
+    # First, generate the paper list to make it current
+    gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=False,
+                        paper_list_path=paper_list_path)
+
     # Now check should pass
-    # But we need to capture sys.exit(0)
     try:
-        gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=True)
+        gen.generate_readme(sample_papers, readme_path, sample_cfg, check_mode=True,
+                            paper_list_path=paper_list_path)
     except SystemExit as e:
         assert e.code == 0

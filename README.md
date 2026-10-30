@@ -8,7 +8,7 @@
 - **License**: https://github.com/tobias-weiss-ai-xr/skeleton-research/blob/main/LICENSE
 - **CI**: https://github.com/<YOUR_ORG>/<YOUR_REPO>/actions/workflows/validate.yml
 - **GitHub Pages**: https://<YOUR_ORG>.github.io/<YOUR_REPO>/
-
+- **Paper list**: [docs/paper_list.md](docs/paper_list.md) (auto-generated, grouped by taxonomy)
 
 > 🎓 **Workshop-ready:** This repository is the *skeleton* for a data-driven,
 > auto-validated, agentic literature review — the same architecture used by the
@@ -20,7 +20,7 @@
 |------------|-----|
 | 📄 **Curated corpus** | `papers.yaml` is the source of truth — one structured entry per paper |
 | ✅ **Auto-validation** | `scripts/validate_papers.py` checks schema, duplicates, URL normalization, LaTeX artifacts |
-| 🧾 **Auto-generated README** | `scripts/generate_readme.py` renders the paper list grouped by your taxonomy |
+| 🧾 **Auto-generated paper list** | `scripts/generate_readme.py` renders `docs/paper_list.md` grouped by your taxonomy |
 | 📊 **Statistics & trends** | `scripts/standard_stats.py` → `statistics.json` (momentum, gaps, bursts, venues, authors) |
 | 🔍 **Literature review report** | `scripts/analysis/generate_reports.py` → `docs/research/literature_review.md` + `trends.md` |
 | 🧭 **Topic planning** | `tools/topic_planner.py`, `tools/trend_scanner.py`, `tools/landscape_analyzer.py`, `tools/brief_generator.py` |
@@ -68,7 +68,7 @@ git push
 config/taxonomy.yaml ──► papers.yaml ──► validate_papers.py
                           │   ▲              │
                           ▼   └── fetch_* ───┘
-                   generate_readme.py ──► README.md paper list (auto)
+                   generate_readme.py ──► docs/paper_list.md (auto)
                           │
                           ▼
                   standard_stats.py ──► statistics.json, docs/papers.json,
@@ -78,13 +78,11 @@ config/taxonomy.yaml ──► papers.yaml ──► validate_papers.py
               analysis/generate_reports.py ──► docs/research/*.md
 ```
 
-The generated README sections (paper list + corpus statistics) are
+The generated README section (corpus statistics) and the paper list document are
 **marker-delimited** (`<!-- BEGIN … -->` … `<!-- END … -->`) and are owned by
-the pipeline: `generate_readme.py` and `standard_stats.py` regenerate exactly
-their section on every run. Everything else in the README is user-owned prose
-and is left untouched. If a repo drops a section entirely (e.g. the paper list
-lives on the GitHub Pages site), the owning script skips it gracefully instead
-of erroring.
+the pipeline: `generate_readme.py` regenerates `docs/paper_list.md`
+and `standard_stats.py` regenerates the corpus-statistics section on every run. Everything else in the README is user-owned prose
+and is left untouched. The paper list now lives in `docs/paper_list.md`; the README only links to it.
 
 - **Never edit the generated README sections by hand** — run the pipeline.
 - The **taxonomy lives in one place** (`config/taxonomy.yaml`); every script reads it via `scripts/research_config.py`, which now validates the config up front so mistakes fail loudly.
@@ -169,70 +167,6 @@ This repo is designed to be driven by coding agents (OpenCode, Claude Code, …)
 - **Auto-validation** gives agents an objective pass/fail signal.
 - **Weekly discovery** keeps the corpus fresh without human babysitting.
 
-<!-- BEGIN PAPER LIST -->
-
-## 📚 Paper list
-
-- [📚 Methods & Architectures](#methods-&-architectures)
-  - [Agentic](#agentic)
-- [📚 Applications](#applications)
-  - [Non-Agentic](#non-agentic)
-- [📚 Evaluation & Benchmarks](#evaluation-&-benchmarks)
-  - [Hybrid](#hybrid)
-- [📚 Surveys & Taxonomies](#surveys-&-taxonomies)
-  - [Non-Agentic](#non-agentic)
-  - [Hybrid](#hybrid)
-
-### Methods & Architectures
-
-#### Agentic
-
-##### 2026
-
-- [2026] **Example Paper 2: An Agentic Method for Your Topic** [[paper](https://arxiv.org/abs/2603.00002)]
-
-[⬆ Back to top](#paper-list)
-
-### Applications
-
-#### Non-Agentic
-
-##### 2025
-
-- [2025] **Example Paper 3: Application Study in Your Domain** [[paper](https://arxiv.org/abs/2511.00003)]
-
-[⬆ Back to top](#paper-list)
-
-### Evaluation & Benchmarks
-
-#### Hybrid
-
-##### 2025
-
-- [2025] **Example Paper 4: An Evaluation Benchmark for Your Topic** [[paper](https://arxiv.org/abs/2508.00004)]
-
-[⬆ Back to top](#paper-list)
-
-### Surveys & Taxonomies
-
-#### Non-Agentic
-
-##### 2025
-
-- [2025] **Example Paper 5: A Survey of Your Topic Across Domains** [[paper](https://arxiv.org/abs/2505.00005)]
-
-[⬆ Back to top](#paper-list)
-
-#### Hybrid
-
-##### 2026
-
-- [2026] **Example Paper 1: A Foundational Survey of Your Topic** [[paper](https://arxiv.org/abs/2601.00001)]
-
-[⬆ Back to top](#paper-list)
-
-<!-- END PAPER LIST -->
-
 <!-- BEGIN CORPUS STATISTICS -->
 
 ## 📊 Corpus Statistics
@@ -284,7 +218,7 @@ Sources: **arXiv** 5 (100%).
 | `evaluation/hybrid` | 1 |
 | `survey/non-agentic` | 1 |
 
-*Generated 2026-09 by `scripts/standard_stats.py`.*
+*Generated 2026-10 by `scripts/standard_stats.py`.*
 
 <!-- END CORPUS STATISTICS -->
 

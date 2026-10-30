@@ -12,13 +12,13 @@ for a research topic: papers live in `papers.yaml`, everything else is generated
 1. **Never edit the generated `README.md` sections by hand.** The paper list
    and the corpus-statistics block are owned by the pipeline and delimited by
    invisible HTML-comment markers
-   (`<!-- BEGIN PAPER LIST -->` / `<!-- BEGIN CORPUS STATISTICS -->` …
-   `<!-- END … -->`). `scripts/generate_readme.py` regenerates the paper
-   list; `scripts/standard_stats.py` regenerates the corpus statistics. Any
+   (`<!-- BEGIN CORPUS STATISTICS -->` … `<!-- END … -->`).
+   `scripts/generate_readme.py` regenerates `docs/paper_list.md`;
+   `scripts/standard_stats.py` regenerates the corpus statistics. Any
    other README prose is user-owned and left untouched. Edit `papers.yaml`,
    then regenerate.
-2. **Never edit `docs/papers.json`, `statistics.json`, or `docs/research/*.md`
-   by hand.** They are pipeline outputs.
+2. **Never edit `docs/papers.json`, `docs/paper_list.md`, `statistics.json`, or
+   `docs/research/*.md` by hand.** They are pipeline outputs.
 3. **Never invent papers.** Every entry in `papers.yaml` must have a real,
    verifiable `url`. If you cannot verify a paper exists, do not add it.
 4. **After any `papers.yaml` change, run the full pipeline** and make sure it
@@ -60,7 +60,7 @@ papers.yaml                   ← source of truth (edit me to add papers)
 scripts/research_config.py    ← single config loader (all scripts use this)
 scripts/readme_sections.py    ← marker-delimited README sections owned by the pipeline
 scripts/validate_papers.py    ← schema/duplicate/URL validation
-scripts/generate_readme.py    ← README.md paper list + docs/papers.json from papers.yaml
+scripts/generate_readme.py    ← docs/paper_list.md + docs/papers.json from papers.yaml
 scripts/standard_stats.py     ← statistics.json + papers.json + graph data + README corpus statistics
 scripts/analysis/generate_reports.py → docs/research/{literature_review,trends}.md
 scripts/fetch/                ← arXiv/OpenAlex/dblp/crossref/europepmc/GitHub/GitLab/Codeberg discovery
@@ -69,6 +69,7 @@ tests/                        ← pytest unit suite (`python3 -m pytest`)
 Makefile                      ← task runner: `make validate|check|generate|test|all`
 tools/                        ← topic_planner, trend_scanner, landscape_analyzer, brief_generator
 docs/index.html               ← GitHub Pages paper browser (reads docs/papers.json)
+docs/paper_list.md             ← auto-generated paper list (owned by generate_readme.py)
 ```
 
 ## Freshness gates (`--check`)
