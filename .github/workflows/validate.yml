@@ -100,8 +100,8 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies (cached)
-        run: pip install -r requirements.txt pytest --quiet
+      - name: Install dependencies (incl. tests)
+        run: pip install -r requirements.txt pytest hypothesis --quiet
 
       - name: Run unit tests
         run: python3 -m pytest
