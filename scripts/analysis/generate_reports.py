@@ -16,7 +16,7 @@ Usage:
 """
 
 import argparse
-import json
+import re
 import sys
 from collections import Counter
 from datetime import datetime
@@ -30,8 +30,26 @@ sys.path.insert(0, str(REPO / "scripts"))
 
 from trend_scanner import scan as scan_trends  # noqa: E402
 import research_config  # noqa: E402
+import standard_stats  # noqa: E402  (deterministic stats fallback for --check)
 
 _CFG = research_config.require_valid_config()
+
+# ``**Generated:** YYYY-MM-DD`` line — doubles as the time anchor that --check
+# reuses so the freshness gate is timestamp-agnostic (a pure wall-clock day
+# rollover never counts as "stale"; only corpus/config drift does).
+_GENERATED_RE = re.compile(r"\*\*Generated:\*\*\s*(\d{4}-\d{2}-\d{2})")
+
+
+def _parse_generated_anchor(text):
+    """Return the datetime of the committed report's ``**Generated:**`` line,
+    or None when unparseable."""
+    m = _GENERATED_RE.search(text or "")
+    if not m:
+        return None
+    try:
+        return datetime.strptime(m.group(1), "%Y-%m-%d")
+    except ValueError:
+        return None
 
 
 def _display(kebab):
@@ -46,6 +64,7 @@ def load_papers():
 
 
 def render_literature(papers, now, stats):
+    now = now or datetime.now()
     total = len(papers)
     cat_counter = Counter(p.get("category", "unknown") for p in papers)
     sub_counter = Counter(p.get("subcategory", "unknown") for p in papers)
@@ -55,7 +74,7 @@ def render_literature(papers, now, stats):
     median = years[len(years) // 2] if years else "—"
 
     L = ["# Literature Review", "",
-         f"**Generated:** {now}  ",
+         f"**Generated:** {now:%Y-%m-%d}  ",
          f"**Corpus:** {total:,} papers across {len(cat_counter)} categories", "",
          "> Synthesis of the corpus. Category insights are grounded in "
          "title/abstract analysis of the papers themselves.", "", "---", "",
@@ -108,9 +127,10 @@ def render_literature(papers, now, stats):
 
 
 def render_trends(papers, now):
-    res = scan_trends(papers, months=12, top=15)
+    now = now or datetime.now()
+    res = scan_trends(papers, months=12, top=15, now=now)
     L = ["# Trends (12-Month View)", "",
-         f"**Generated:** {now}  ",
+         f"**Generated:** {now:%Y-%m-%d}  ",
          f"**Window:** since {res['cutoff']} — {res['recent_papers']} of {len(papers)} papers", "",
          "## 🔥 Keyword Bursts", "", "| Keyword | Recent | Total | Burst |",
          "|---------|--------|-------|-------|"]
@@ -127,12 +147,53 @@ def render_trends(papers, now):
 REPORT_FILES = ("literature_review.md", "trends.md")
 
 
-def render_reports(papers, now, stats):
-    """Render both reports, returning {filename: content}."""
+def reports_for(papers, now=None, stats=None):
+    """Render both reports, returning {filename: content}.
+
+    ``now`` (default: real clock) anchors the rolling 12-month window.
+    ``--check`` passes the anchor parsed from each committed report so the
+    gate is timestamp-agnostic.  ``stats`` defaults to a deterministic
+    recomputation from ``papers`` (statistics.json is gitignored and absent in
+    a fresh CI checkout, so it must not be a dependency of the gate).
+    """
+    now = now or datetime.now()
+    if stats is None:
+        stats, _export, _viz = standard_stats.compute_all(papers, now=now)
     return {
         "literature_review.md": render_literature(papers, now, stats),
         "trends.md": render_trends(papers, now),
     }
+
+
+def check_reports(papers, out_dir, now=None):
+    """Return the list of stale report filenames ([] when fresh).
+
+    Each committed report is regenerated as of its own ``**Generated:**``
+    anchor, so wall-clock drift alone never trips the gate.
+    """
+    now = now or datetime.now()
+    stale = []
+    for fname in REPORT_FILES:
+        path = out_dir / fname
+        current = path.read_text(encoding="utf-8") if path.exists() else None
+        if current is None:
+            stale.append(fname)
+            continue
+        anchor = _parse_generated_anchor(current) or now
+        expected = reports_for(papers, now=anchor)[fname]
+        if current != expected:
+            stale.append(fname)
+    return stale
+
+
+def write_reports(papers, out_dir, now=None):
+    """Render and write both reports (docs/research/*)."""
+    out_dir = Path(out_dir)
+    reports = reports_for(papers, now=now)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for fname, content in reports.items():
+        (out_dir / fname).write_text(content, encoding="utf-8")
+    print("wrote docs/research/literature_review.md & docs/research/trends.md")
 
 
 def main():
@@ -144,20 +205,10 @@ def main():
     args = parser.parse_args()
 
     papers = load_papers()
-    now = datetime.now().isoformat()[:10]
-    stats_path = REPO / "statistics.json"
-    stats = json.loads(stats_path.read_text(encoding="utf-8")) if stats_path.exists() else None
-
     out = REPO / "docs" / "research"
-    reports = render_reports(papers, now, stats)
 
     if args.check:
-        stale = []
-        for fname, content in reports.items():
-            path = out / fname
-            current = path.read_text(encoding="utf-8") if path.exists() else None
-            if current != content:
-                stale.append(fname)
+        stale = check_reports(papers, out)
         if not stale:
             print("All reports are up-to-date.")
             sys.exit(0)
@@ -168,10 +219,7 @@ def main():
         )
         sys.exit(1)
 
-    out.mkdir(parents=True, exist_ok=True)
-    for fname, content in reports.items():
-        (out / fname).write_text(content, encoding="utf-8")
-    print("wrote docs/research/literature_review.md & docs/research/trends.md")
+    write_reports(papers, out)
 
 
 if __name__ == "__main__":

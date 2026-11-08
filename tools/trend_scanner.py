@@ -58,8 +58,8 @@ def load_papers():
     return data.get("papers", [])
 
 
-def scan(papers, months, top=15):
-    now = datetime.now()
+def scan(papers, months, top=15, now=None):
+    now = now or datetime.now()
     cy, cm = now.year, now.month - months
     while cm <= 0:
         cy -= 1

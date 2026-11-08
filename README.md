@@ -218,7 +218,7 @@ Sources: **arXiv** 5 (100%).
 | `evaluation/hybrid` | 1 |
 | `survey/non-agentic` | 1 |
 
-*Generated 2026-10 by `scripts/standard_stats.py`.*
+*Generated 2026-11 by `scripts/standard_stats.py`.*
 
 <!-- END CORPUS STATISTICS -->
 

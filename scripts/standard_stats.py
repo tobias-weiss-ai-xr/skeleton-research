@@ -64,12 +64,16 @@ def _date_in(datestring, lo, end):
         return False
 
 
-def compute_all(entries):
+def compute_all(entries, now=None):
     """Compute stats + papers.json + viz payload from paper entries.
 
     Returns (stats, papers_export, viz).  Pure computation — no I/O — so it
-    can be reused for both writing and freshness ``--check``.
+    can be reused for both writing and freshness ``--check``.  ``now``
+    (default: real clock) anchors the rolling 12-month window; ``--check``
+    passes the anchor parsed from the committed artifacts so the freshness
+    gate is timestamp-agnostic.
     """
+    now = now or datetime.now()
     print(f"Parsed {len(entries)} papers")
 
     cats = [c for c in sorted({e.get("category", "unknown") for e in entries})
@@ -246,6 +250,16 @@ STATS_OUTPUTS = (
 )
 
 
+# Subset of STATS_OUTPUTS that is committed to git.  statistics.json and
+# papers.json are gitignored pipeline outputs (rebuilt locally / by the pages
+# job), so a fresh CI checkout never has them — a byte-compare against them
+# would always report "stale".  The freshness gate therefore only verifies
+# the committed artifacts.
+COMMITTED_OUTPUTS = (
+    ("assets/graph_analysis.json", "viz", 1),
+)
+
+
 def build_outputs(stats, papers_export, viz):
     """Return {relative_path: serialized string} for every generator output."""
     payloads = {"stats": stats, "papers": papers_export, "viz": viz}
@@ -255,43 +269,93 @@ def build_outputs(stats, papers_export, viz):
     }
 
 
+def outputs_and_readme(entries, cfg, readme_path, now=None):
+    """Pure computation of every generator output + the README section text.
+
+    Returns ``(outputs, readme_expected)`` where ``outputs`` maps relative
+    paths (from the repo root) to serialized content and ``readme_expected``
+    is the full README text as it should look after regeneration (None when
+    README is absent).  No I/O beyond reading ``readme_path``.
+    """
+    now = now or datetime.now()
+    stats, export, viz = compute_all(entries, now=now)
+    outputs = build_outputs(stats, export, viz)
+
+    readme_expected = None
+    if readme_path.exists():
+        stats_md = readme_sections.render_stats_section(stats, cfg, now=now)
+        readme_expected = readme_sections.render_readme_check(
+            readme_path.read_text(encoding="utf-8"),
+            readme_sections.STATS_START, readme_sections.STATS_END,
+            stats_md,
+            legacy_heading=readme_sections.STATS_LEGACY_HEADING)
+    return outputs, readme_expected
+
+
+def check_outputs(entries, cfg, readme_path, repo_root, now=None):
+    """Return the list of stale *committed* output paths ([] when fresh).
+
+    Timestamp-agnostic: ``now`` defaults to the anchor parsed from the
+    committed README footer, so the generated outputs are reproduced as of the
+    same time the committed artifacts were made.  Only wall-clock drift
+    therefore never trips the gate — only corpus/config drift does.
+    """
+    readme_path = Path(readme_path)
+    anchor = None
+    if readme_path.exists():
+        anchor = readme_sections.parse_stats_anchor(
+            readme_path.read_text(encoding="utf-8"))
+    outputs, readme_expected = outputs_and_readme(
+        entries, cfg, readme_path, now=anchor or now)
+
+    stale = []
+    for rel, _key, _indent in COMMITTED_OUTPUTS:
+        path = repo_root / rel
+        current = path.read_text(encoding="utf-8") if path.exists() else None
+        if current != outputs[rel]:
+            stale.append(rel)
+    if readme_expected is not None and \
+            readme_expected != readme_path.read_text(encoding="utf-8"):
+        stale.append("README.md (corpus statistics)")
+    return stale
+
+
+def write_outputs(entries, cfg, readme_path, repo_root, now=None):
+    """Write every output (including gitignored statistics.json/papers.json)
+    and refresh the README corpus-stats section."""
+    readme_path = Path(readme_path)
+    outputs, readme_expected = outputs_and_readme(entries, cfg, readme_path, now=now)
+    for rel, content in outputs.items():
+        path = repo_root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
+    print(f"Wrote statistics.json ({len(entries)} papers), papers.json, "
+          "assets/graph_analysis.json")
+    if readme_expected is not None:
+        if readme_expected != readme_path.read_text(encoding="utf-8"):
+            readme_path.write_text(readme_expected, encoding="utf-8")
+            print("Updated README.md corpus statistics")
+        else:
+            print("README.md corpus statistics up to date")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Generate statistics & visualization outputs")
     parser.add_argument(
         "--check", action="store_true",
-        help="Verify all outputs are up-to-date without writing (exit 1 if stale)",
+        help="Verify outputs are up-to-date without writing (exit 1 if stale)",
     )
     args = parser.parse_args()
 
     with open(REPO / "papers.yaml", encoding="utf-8") as f:
         data = yaml.safe_load(f)
     entries = data.get("papers", [])
-    stats, export, viz = compute_all(entries)
-    outputs = build_outputs(stats, export, viz)
 
-    # The README corpus-statistics section is owned by this script too
-    # (marker-delimited; migrated from legacy headings when needed).
-    readme = REPO / "README.md"
-    readme_expected = None
-    if readme.exists():
-        stats_md = readme_sections.render_stats_section(stats, _CFG)
-        readme_expected = readme_sections.render_readme_check(
-            readme.read_text(encoding="utf-8"),
-            readme_sections.STATS_START, readme_sections.STATS_END,
-            stats_md,
-            legacy_heading=readme_sections.STATS_LEGACY_HEADING)
-
+    readme_path = REPO / "README.md"
     if args.check:
-        stale = []
-        for rel in outputs:
-            path = REPO / rel
-            current = path.read_text(encoding="utf-8") if path.exists() else None
-            if current != outputs[rel]:
-                stale.append(rel)
-        if readme_expected is not None and readme_expected != readme.read_text(encoding="utf-8"):
-            stale.append("README.md (corpus statistics)")
+        stale = check_outputs(entries, _CFG, readme_path, REPO)
         if not stale:
-            print("All stats outputs are up-to-date.")
+            print("All committed stats outputs are up-to-date.")
             sys.exit(0)
         print(
             "Stale outputs: " + ", ".join(stale) +
@@ -300,18 +364,7 @@ def main():
         )
         sys.exit(1)
 
-    for rel, content in outputs.items():
-        path = REPO / rel
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content, encoding="utf-8")
-    print(f"Wrote statistics.json ({len(entries)} papers), papers.json, assets/graph_analysis.json")
-
-    if readme_expected is not None:
-        if readme_expected != readme.read_text(encoding="utf-8"):
-            readme.write_text(readme_expected, encoding="utf-8")
-            print("Updated README.md corpus statistics")
-        else:
-            print("README.md corpus statistics up to date")
+    write_outputs(entries, _CFG, readme_path, REPO)
 
 
 if __name__ == "__main__":
