@@ -35,6 +35,17 @@
 ## 🚀 Jump-start (5 steps)
 
 ```bash
+# 0. Easiest: one-command topic bootstrap
+export PY=python3.12   # use python3.12 if the default python3 is broken
+
+python3 scripts/setup_new_topic.py --name "Your Research Topic" \
+    --short your-topic --desc "Short description" \
+    --email research@example.com
+#   1. rewrites config/taxonomy.yaml (topic name/short/description/email)
+#   2. runs `make bootstrap` to re-stamp README/HTML/CITATION identity
+#   3. prints next steps (repo repoint, taxonomy queries, seed corpus)
+
+# ── or manually: ──
 # 1. Clone and rename
 git clone https://github.com/tobias-weiss-ai-xr/skeleton-research.git my-topic-research
 cd my-topic-research
@@ -146,6 +157,7 @@ Beyond the core pipeline, several scripts remain available for manual / schedule
 
 | Script | What it does |
 |---|---|
+| `scripts/setup_new_topic.py` | **ONE-COMMAND BOOTSTRAP** — set topic name/short/desc in config/taxonomy.yaml, run make bootstrap, print next steps |
 | `scripts/fetch/fetch_new_papers.py` | arXiv discovery; `--create-pr` opens a weekly PR (used by CI) |
 | `scripts/fetch/fetch_openalex_bulk.py` | OpenAlex bulk discovery per category (`--months`, `--local`) |
 | `scripts/fetch/fetch_other_sources.py` | dblp / crossref / Europe PMC / Semantic Scholar discovery |
@@ -166,6 +178,20 @@ This repo is designed to be driven by coding agents (OpenCode, Claude Code, …)
 - **One config file** to change → one re-run to verify (low context cost for agents).
 - **Auto-validation** gives agents an objective pass/fail signal.
 - **Weekly discovery** keeps the corpus fresh without human babysitting.
+
+## 🧰 Agent skills (for literature research)
+
+This repo ships a set of **agent skills** under [`skills/`](skills/) that pack
+the hard-won operational knowledge from production `*-research` repos. Coding
+agents load the relevant skill before the corresponding task:
+
+| Skill | Path | Covers |
+|-------|------|--------|
+| **Corpus ingestion** | [`skills/research-corpus-ingestion/SKILL.md`](skills/research-corpus-ingestion/SKILL.md) | Fetch pipeline (arXiv/OpenAlex/other), preview→ingest→validate→regenerate, production gotchas (python3.12, arXiv caps, DBLP failures) |
+| **Junk-scan** | [`skills/research-corpus-junk-scan/SKILL.md`](skills/research-corpus-junk-scan/SKILL.md) | Why keyword queries pull off-topic papers, junk categories to drop, safe removal procedure, borderline keep/drop rules |
+| **Classification** | [`skills/research-corpus-classify/SKILL.md`](skills/research-corpus-classify/SKILL.md) | Assigning valid category/subcategory from the taxonomy, common traps, verification |
+
+To instantiate a new topic: `python3 scripts/setup_new_topic.py --name "Your Topic"` — see the jump-start above.
 
 <!-- BEGIN CORPUS STATISTICS -->
 

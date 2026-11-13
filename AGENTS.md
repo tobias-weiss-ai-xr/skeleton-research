@@ -7,6 +7,20 @@
 Data-driven, auto-validated literature review corpus. The repo is a **skeleton**
 for a research topic: papers live in `papers.yaml`, everything else is generated.
 
+## 🧰 Skills (handy for literature research)
+
+This repo ships a set of agent skills under [`skills/`](skills/). Load the
+relevant one before doing that kind of work:
+
+| Skill | When to load | Path |
+|-------|--------------|------|
+| **Corpus ingestion** | Finding new papers / running the fetch pipeline / expanding a category | `skills/research-corpus-ingestion/SKILL.md` |
+| **Junk-scan** | After any ingestion round — removing off-topic papers | `skills/research-corpus-junk-scan/SKILL.md` |
+| **Classification** | Categorizing / reclassifying papers against the taxonomy | `skills/research-corpus-classify/SKILL.md` |
+
+Each skill documents the workflow it drives, the gotchas learned from
+production `*-research` repos, and its own verification step.
+
 ## Non-negotiable rules
 
 1. **Never edit the generated `README.md` sections by hand.** The paper list
@@ -58,6 +72,7 @@ for a research topic: papers live in `papers.yaml`, everything else is generated
 config/taxonomy.yaml          ← THE config: topic, taxonomy, queries (edit me)
 papers.yaml                   ← source of truth (edit me to add papers)
 scripts/research_config.py    ← single config loader (all scripts use this)
+scripts/setup_new_topic.py    ← QUICK-START: bootstrap a new topic (name, short, desc, email)
 scripts/readme_sections.py    ← marker-delimited README sections owned by the pipeline
 scripts/validate_papers.py    ← schema/duplicate/URL validation
 scripts/generate_readme.py    ← docs/paper_list.md + docs/papers.json from papers.yaml
@@ -65,11 +80,12 @@ scripts/standard_stats.py     ← statistics.json + papers.json + graph data + R
 scripts/analysis/generate_reports.py → docs/research/{literature_review,trends}.md
 scripts/fetch/                ← arXiv/OpenAlex/dblp/crossref/europepmc/GitHub/GitLab/Codeberg discovery
 scripts/fetch/repos_common.py ← shared repo-fetcher logic (HTTP retry, relevance)
+skills/                      ← agent skills (ingestion, junk-scan, classification)
 tests/                        ← pytest unit suite (`python3 -m pytest`)
-Makefile                      ← task runner: `make validate|check|generate|test|all`
+Makefile                      ← task runner: `make validate|check|generate|test|all|bootstrap`
 tools/                        ← topic_planner, trend_scanner, landscape_analyzer, brief_generator
-docs/index.html               ← GitHub Pages paper browser (reads docs/papers.json)
-docs/paper_list.md             ← auto-generated paper list (owned by generate_readme.py)
+/docs/index.html             ← GitHub Pages paper browser (reads docs/papers.json)
+/docs/paper_list.md          ← auto-generated paper list (owned by generate_readme.py)
 ```
 
 ## Freshness gates (`--check`)
@@ -80,6 +96,7 @@ by CI and `make check`. Run them after touching data or category scripts.
 
 ## Common agent tasks
 
+- **"Bootstrap a new corpus topic"** → run `python3 scripts/setup_new_topic.py --name "Your Topic" --short your-topic --desc "description" --email your@email.com`, then follow printed next steps.
 - **"Add this paper"** → follow the checklist above.
 - **"What are the hottest topics?"** → `python3 tools/trend_scanner.py --months 12`
 - **"What are the research gaps?"** → `python3 tools/landscape_analyzer.py`
