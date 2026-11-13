@@ -1,7 +1,27 @@
 # Multi-source discovery queries (fetch_other_sources.py)
 # Replace the example queries below with topic-specific ones.
 # Sources supported: dblp, crossref, europepmc, openalex, semantic_scholar
+#
+# EXAMPLE: Kubernetes / Container Security queries
+# (remove these and add your own topic queries)
+- source: crossref
+  query: "Kubernetes AND security AND RBAC"
+  category: security
+  subcategory_hint: systems
+- source: openalex
+  query: "container AND security AND isolation AND namespaces"
+  category: security
+  subcategory_hint: architecture
+- source: dblp
+  query: "container escape AND kernel vulnerabilities"
+  category: security
+  subcategory_hint: method
+- source: semantic_scholar
+  query: "eBPF AND runtime security AND containers"
+  category: security
+  subcategory_hint: mechanism
 
+# Generic placeholders — replace with your actual queries
 - source: dblp
   query: your topic a
   category: method

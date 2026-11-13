@@ -43,6 +43,18 @@ taxonomy:
 #   - query: 'cat:cs.RO AND abs:"manipulation"'
 #     category: manipulation
 #     subcategory_hint: method
+#
+# EXAMPLE: Kubernetes / Container Security queries
+# (remove these and add your own topic queries)
+# arXiv_queries:
+#   - query: 'cat:cs.CF AND (abs:"Kubernetes" AND abs:"security")'
+#     category: security
+#   - query: 'cat:cs.CF AND abs:"container AND escape"'
+#     category: security
+#   - query: 'cat:cs.CR AND (abs:"runtime AND security" AND ti:"container")'
+#     category: security
+#   - query: 'cat:cs.NI AND abs:"service mesh AND security"'
+#     category: security
 arxiv_queries:
   # Give every query a category, otherwise discovered papers get category: ""
   # and validate_papers.py fails until you fill it in by hand.
@@ -65,8 +77,19 @@ other_sources_queries:
     category: survey
     subcategory_hint: hybrid
 
-# ── OpenAlex bulk fetch (fetch_openalex_bulk.py) ─────────────────────────────
+# ━━ OpenAlex bulk fetch (fetch_openalex_bulk.py) ━━━━━━━━━━━━━━━━━━━
 # Per-category OpenAlex search phrases.
+#
+# EXAMPLE: Kubernetes / Container Security
+# openalex_queries:
+#   - category: security
+#     query: "Kubernetes AND security AND RBAC"
+#   - category: security
+#     query: "container AND security AND isolation"
+#   - category: security
+#     query: "eBPF AND runtime AND security"
+#   - category: security
+#     query: "service mesh AND mTLS AND security"
 openalex_queries:
   - category: method
     query: "YOUR TOPIC method architecture"
