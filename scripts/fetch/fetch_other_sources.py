@@ -36,6 +36,8 @@ def clamp_future_date(yyyymm):
 from pathlib import Path
 
 import requests
+import os
+import tempfile
 import yaml
 
 BASE = Path(__file__).resolve().parent.parent.parent
@@ -449,9 +451,11 @@ def append_to_yaml(yaml_path, new_papers):
             entry["venue"] = e["venue"]
         papers.append(entry)
     data["papers"] = papers
-    with open(yaml_path, "w", encoding="utf-8") as f:
+    tmp_path = yaml_path.with_suffix('.tmp')
+    with open(tmp_path, "w", encoding="utf-8") as f:
         yaml.dump(data, f, default_flow_style=False,
                   allow_unicode=True, sort_keys=False)
+    os.replace(tmp_path, yaml_path)
 
 
 # ── Main ─────────────────────────────────────────────────────────────────
